@@ -174,6 +174,18 @@ nav.links a:hover, nav.links a:focus-visible{color:var(--text);}
 
 .hero h1 .accent{color:var(--gold);}
 
+.hero-badge{
+  display:inline-block;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.78rem;
+  letter-spacing:0.06em;
+  color:var(--gold-bright);
+  border:1px solid var(--gold);
+  clip-path:var(--radius-hex);
+  padding:8px 16px;
+  margin:14px 0 6px;
+}
+
 .hero .motto{
   font-family:'Syne', sans-serif;
   font-weight:600;
@@ -227,7 +239,7 @@ section{
 /* ===== ABOUT ===== */
 .about-grid{
   display:grid;
-  grid-template-columns:260px 1fr;
+  grid-template-columns:180px 1fr;
   gap:56px;
   align-items:start;
 }
@@ -235,6 +247,7 @@ section{
 
 .portrait{
   width:100%;
+  max-width:180px;
   aspect-ratio:1/1;
   clip-path:var(--radius-hex);
   background:linear-gradient(155deg, var(--surface-2), var(--surface));
@@ -245,6 +258,7 @@ section{
   position:relative;
   overflow:hidden;
 }
+@media(max-width:760px){.portrait{margin:0 auto;}}
 .portrait img{
   width:100%; height:100%; object-fit:cover; display:block;
 }
@@ -372,6 +386,75 @@ section{
   word-break:break-word;
 }
 
+/* ===== PROCESS ===== */
+.process-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:22px;
+}
+.process-step{
+  background:var(--surface);
+  border:1px solid var(--line);
+  clip-path:var(--radius-hex);
+  padding:30px 26px;
+  position:relative;
+}
+.process-step .step-num{
+  font-family:'Syne', sans-serif;
+  font-weight:800;
+  font-size:2.2rem;
+  color:var(--gold);
+  opacity:0.35;
+  line-height:1;
+}
+.process-step h3{
+  font-size:1.05rem;
+  margin:10px 0 8px;
+}
+.process-step p{
+  color:var(--text-muted);
+  font-size:0.9rem;
+}
+
+/* ===== FAQ ===== */
+.faq-list{
+  max-width:760px;
+}
+.faq-item{
+  border:1px solid var(--line);
+  background:var(--surface);
+  clip-path:var(--radius-hex);
+  margin-bottom:14px;
+  overflow:hidden;
+}
+.faq-item summary{
+  cursor:pointer;
+  list-style:none;
+  padding:20px 24px;
+  font-family:'Syne', sans-serif;
+  font-weight:600;
+  font-size:1rem;
+  color:var(--text);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary::after{
+  content:'+';
+  color:var(--gold);
+  font-size:1.3rem;
+  margin-left:16px;
+  transition:transform .2s;
+  flex:none;
+}
+.faq-item[open] summary::after{transform:rotate(45deg);}
+.faq-item .faq-body{
+  padding:0 24px 20px;
+  color:var(--text-muted);
+  font-size:0.92rem;
+}
+
 /* ===== FOOTER ===== */
 footer{
   border-top:1px solid var(--line);
@@ -411,7 +494,9 @@ footer{
     <nav class="links">
       <a href="#about">About</a>
       <a href="#services">Services</a>
+      <a href="#process">Process</a>
       <a href="#portfolio">Portfolio</a>
+      <a href="#faq">FAQ</a>
       <a href="#contact" class="btn btn-solid nav-cta">Let's Talk</a>
     </nav>
   </div>
@@ -433,6 +518,7 @@ footer{
 
   <div class="wrap hero-inner">
     <p class="eyebrow">// e-commerce &amp; shopify development</p>
+    <span class="hero-badge">7+ Years in E-Commerce</span>
     <h1>Bright_the<span class="accent">expert</span></h1>
     <p class="motto">Built for E-Commerce, Driven by Results.</p>
     <p class="lede">I design and build online stores on Shopify and other e-commerce platforms — focused on clean builds, fast load times, and stores that are genuinely ready to sell.</p>
@@ -451,13 +537,15 @@ footer{
     <div class="about-body">
       <p class="eyebrow">Who I am</p>
       <h2 style="margin:10px 0 20px;">The developer behind BTE</h2>
-      <p>I'm <strong>Bright</strong>, an e-commerce web developer working under the name <strong>Bright_theexpert (BTE)</strong>. I specialize in building and customizing online stores — primarily on Shopify, with additional experience across other e-commerce platforms — for businesses that need a store which is both visually polished and fully operational from day one.</p>
-      <p>I hold a <strong>B.Tech in Computer Science from Ladoke Akintola University of Technology (LAUTECH)</strong>, and I've completed formal training through the <strong>Shopify Academy</strong> to deepen my technical grounding in the platform.</p>
+      <p>I'm <strong>Bright</strong>, an e-commerce web developer working under the name <strong>Bright_theexpert (BTE)</strong>, with <strong>over 7 years of experience</strong> in e-commerce. I specialize in building and customizing online stores — primarily on Shopify, with additional experience across other e-commerce platforms — for businesses that need a store which is both visually polished and fully operational from day one.</p>
+      <p>I hold a <strong>B.Tech in Computer Science from Ladoke Akintola University of Technology (LAUTECH)</strong>, and I've completed formal training through the <strong>Shopify Academy</strong> as well as <strong>Google's Digital Marketing &amp; E-Commerce</strong> program, to deepen my technical and marketing grounding around the platform.</p>
       <p>My work centers on the fundamentals that determine whether a store actually performs: structured store setup, precise theme customization, reliable checkout flows, and fast, mobile-first load times — since that's where most shoppers engage.</p>
       <p>This site is actively maintained, with project case studies added as they're completed, rather than populated with placeholder work.</p>
       <div class="tag-row">
+        <span class="tag">7+ Years E-Commerce Experience</span>
         <span class="tag">B.Tech Computer Science — LAUTECH</span>
         <span class="tag">Shopify Academy Trained</span>
+        <span class="tag">Google Digital Marketing &amp; E-Commerce</span>
         <span class="tag">Shopify</span>
         <span class="tag">WooCommerce</span>
         <span class="tag">Wix</span>
@@ -474,44 +562,85 @@ footer{
     </div>
     <div class="services-grid">
       <div class="service-card">
-        <span class="num">01</span>
+        <span class="num">🛒 01</span>
         <h3>Store Setup &amp; Launch</h3>
         <p>Full store setup from scratch — domain connection, theme install, products, collections, and payments configured and ready to sell.</p>
       </div>
       <div class="service-card">
-        <span class="num">02</span>
+        <span class="num">🎨 02</span>
         <h3>Theme Design &amp; Customization</h3>
         <p>Adjusting and building out themes so your store matches your brand instead of looking like a default template.</p>
       </div>
       <div class="service-card">
-        <span class="num">03</span>
+        <span class="num">⚡ 03</span>
         <h3>Store Speed Optimization</h3>
         <p>Cleaning up bloated code, oversized images, and slow apps so your store loads fast on every device.</p>
       </div>
       <div class="service-card">
-        <span class="num">04</span>
+        <span class="num">🔄 04</span>
         <h3>Platform Migration</h3>
         <p>Moving a store between Shopify, WooCommerce, and Wix carefully, keeping products and data intact.</p>
       </div>
       <div class="service-card">
-        <span class="num">05</span>
+        <span class="num">🔌 05</span>
         <h3>App Integration</h3>
         <p>Setting up reviews, email marketing, and other store apps so they work together instead of against each other.</p>
       </div>
       <div class="service-card">
-        <span class="num">06</span>
+        <span class="num">📱 06</span>
         <h3>Mobile Optimization</h3>
         <p>Making sure the store looks and works properly on phones, not just on a desktop preview.</p>
       </div>
       <div class="service-card">
-        <span class="num">07</span>
+        <span class="num">🔍 07</span>
         <h3>SEO Optimization</h3>
         <p>Structuring product pages, collections, and metadata so your store is actually discoverable in search results.</p>
       </div>
       <div class="service-card">
-        <span class="num">08</span>
+        <span class="num">📦 08</span>
         <h3>Inventory &amp; POS Integration</h3>
         <p>Connecting your online store with physical retail and inventory systems so stock stays accurate across every channel.</p>
+      </div>
+      <div class="service-card">
+        <span class="num">📈 09</span>
+        <h3>Conversion Rate Optimization</h3>
+        <p>Refining product pages, cart flow, and checkout so more visitors actually complete a purchase.</p>
+      </div>
+      <div class="service-card">
+        <span class="num">🛠️ 10</span>
+        <h3>Ongoing Maintenance &amp; Support</h3>
+        <p>Keeping your store updated, fixing issues, and handling small changes after launch so it keeps running smoothly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">How I work</p>
+      <h2>A clear path from idea to launch</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step">
+        <span class="step-num">01</span>
+        <h3>Discovery Call</h3>
+        <p>We talk through what your store needs, your goals, and what's currently not working.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-num">02</span>
+        <h3>Plan &amp; Quote</h3>
+        <p>You get a clear scope, timeline, and price before any work begins — no surprises.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-num">03</span>
+        <h3>Build</h3>
+        <p>I get to work on the setup, design, or fixes, with regular updates as things progress.</p>
+      </div>
+      <div class="process-step">
+        <span class="step-num">04</span>
+        <h3>Launch &amp; Support</h3>
+        <p>Your store goes live, and I check back in afterward to make sure everything's running smoothly.</p>
       </div>
     </div>
   </div>
@@ -526,6 +655,37 @@ footer{
     <div class="portfolio-empty">
       <h3>Building this section with real work</h3>
       <p>Project write-ups are being added here as they're completed — with real client work only. Check back soon, or reach out directly to see examples.</p>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Questions, answered</p>
+      <h2>FAQ</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Who do you work with?</summary>
+        <div class="faq-body">Anyone looking to launch or improve an e-commerce store — new business owners setting up their first store, and existing stores that need a redesign, speed fixes, or a platform move.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How long does a typical project take?</summary>
+        <div class="faq-body">It depends on scope — a basic store setup can take a few days, while a full custom build or migration takes longer. You'll get a clear timeline as part of the quote before work starts.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do you offer support after the store goes live?</summary>
+        <div class="faq-body">Yes — I check in after launch to make sure everything's working correctly, and I'm available for fixes or adjustments afterward.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What do you need from me to get started?</summary>
+        <div class="faq-body">A rough idea of what you're selling, any branding you already have (logo, colors), and access to your store or hosting if one already exists. If you're starting from scratch, I can help you set that up too.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How do payments work?</summary>
+        <div class="faq-body">Pricing is agreed upfront based on the scope of the project. Reach out with details about what you need and I'll send a quote.</div>
+      </details>
     </div>
   </div>
 </section>
@@ -593,7 +753,9 @@ footer{
     <nav class="links" style="gap:24px;">
       <a href="#about">About</a>
       <a href="#services">Services</a>
+      <a href="#process">Process</a>
       <a href="#portfolio">Portfolio</a>
+      <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
