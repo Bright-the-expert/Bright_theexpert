@@ -150,8 +150,19 @@ nav.links a:hover, nav.links a:focus-visible{color:var(--text);}
 }
 .btn-outline:hover, .btn-outline:focus-visible{border-color:var(--gold-bright); color:var(--gold-bright);}
 
-.nav-cta{display:none;}
-@media(min-width:720px){.nav-cta{display:inline-flex;}}
+.nav-cta{
+  display:inline-flex;
+  background:#1f9d63 !important;
+  border-color:#1f9d63 !important;
+  color:#0a0908 !important;
+  font-size:0.72rem;
+  padding:10px 14px;
+}
+@media(min-width:720px){.nav-cta{font-size:0.82rem; padding:12px 22px;}}
+.nav-cta:hover, .nav-cta:focus-visible{
+  background:#28c47d !important;
+  border-color:#28c47d !important;
+}
 
 /* ===== HERO ===== */
 .hero{
@@ -455,6 +466,17 @@ section{
   font-size:0.92rem;
 }
 
+/* ===== SCROLL REVEAL ===== */
+.reveal{
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.reveal.in-view{
+  opacity:1;
+  transform:translateY(0);
+}
+
 /* ===== FOOTER ===== */
 footer{
   border-top:1px solid var(--line);
@@ -539,7 +561,7 @@ footer{
       <h2 style="margin:10px 0 20px;">The developer behind BTE</h2>
       <p>I'm <strong>Bright</strong>, an e-commerce web developer working under the name <strong>Bright_theexpert (BTE)</strong>, with <strong>over 7 years of experience</strong> in e-commerce. I specialize in building and customizing online stores — primarily on Shopify, with additional experience across other e-commerce platforms — for businesses that need a store which is both visually polished and fully operational from day one.</p>
       <p>I hold a <strong>B.Tech in Computer Science from Ladoke Akintola University of Technology (LAUTECH)</strong>, and I've completed formal training through the <strong>Shopify Academy</strong> as well as <strong>Google's Digital Marketing &amp; E-Commerce</strong> program, to deepen my technical and marketing grounding around the platform.</p>
-      <p>My work centers on the fundamentals that determine whether a store actually performs: structured store setup, precise theme customization, reliable checkout flows, and fast, mobile-first load times — since that's where most shoppers engage.</p>
+      <p>My work centers on the fundamentals that determine whether a store actually performs: structured store setup, precise theme customization, reliable checkout flows, and fast, mobile first load times — since that's where most shoppers engage.</p>
       <p>This site is actively maintained, with project case studies added as they're completed, rather than populated with placeholder work.</p>
       <div class="tag-row">
         <span class="tag">7+ Years E-Commerce Experience</span>
@@ -556,57 +578,57 @@ footer{
 
 <section id="services">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <p class="eyebrow">What I do</p>
       <h2>Services</h2>
     </div>
     <div class="services-grid">
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="num">🛒 01</span>
         <h3>Store Setup &amp; Launch</h3>
         <p>Full store setup from scratch — domain connection, theme install, products, collections, and payments configured and ready to sell.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="num">🎨 02</span>
         <h3>Theme Design &amp; Customization</h3>
         <p>Adjusting and building out themes so your store matches your brand instead of looking like a default template.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="num">⚡ 03</span>
         <h3>Store Speed Optimization</h3>
         <p>Cleaning up bloated code, oversized images, and slow apps so your store loads fast on every device.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="num">🔄 04</span>
         <h3>Platform Migration</h3>
         <p>Moving a store between Shopify, WooCommerce, and Wix carefully, keeping products and data intact.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="num">🔌 05</span>
         <h3>App Integration</h3>
         <p>Setting up reviews, email marketing, and other store apps so they work together instead of against each other.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="num">📱 06</span>
         <h3>Mobile Optimization</h3>
         <p>Making sure the store looks and works properly on phones, not just on a desktop preview.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="num">🔍 07</span>
         <h3>SEO Optimization</h3>
         <p>Structuring product pages, collections, and metadata so your store is actually discoverable in search results.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="num">📦 08</span>
         <h3>Inventory &amp; POS Integration</h3>
         <p>Connecting your online store with physical retail and inventory systems so stock stays accurate across every channel.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="num">📈 09</span>
         <h3>Conversion Rate Optimization</h3>
         <p>Refining product pages, cart flow, and checkout so more visitors actually complete a purchase.</p>
       </div>
-      <div class="service-card">
+      <div class="service-card reveal">
         <span class="num">🛠️ 10</span>
         <h3>Ongoing Maintenance &amp; Support</h3>
         <p>Keeping your store updated, fixing issues, and handling small changes after launch so it keeps running smoothly.</p>
@@ -617,30 +639,40 @@ footer{
 
 <section id="process">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <p class="eyebrow">How I work</p>
       <h2>A clear path from idea to launch</h2>
     </div>
     <div class="process-grid">
-      <div class="process-step">
+      <div class="process-step reveal">
         <span class="step-num">01</span>
         <h3>Discovery Call</h3>
         <p>We talk through what your store needs, your goals, and what's currently not working.</p>
       </div>
-      <div class="process-step">
+      <div class="process-step reveal">
         <span class="step-num">02</span>
         <h3>Plan &amp; Quote</h3>
         <p>You get a clear scope, timeline, and price before any work begins — no surprises.</p>
       </div>
-      <div class="process-step">
+      <div class="process-step reveal">
         <span class="step-num">03</span>
         <h3>Build</h3>
         <p>I get to work on the setup, design, or fixes, with regular updates as things progress.</p>
       </div>
-      <div class="process-step">
+      <div class="process-step reveal">
         <span class="step-num">04</span>
         <h3>Launch &amp; Support</h3>
         <p>Your store goes live, and I check back in afterward to make sure everything's running smoothly.</p>
+      </div>
+      <div class="process-step reveal">
+        <span class="step-num">05</span>
+        <h3>Testing &amp; Review</h3>
+        <p>Before launch, we go through the store together — checkout flow, mobile view, page speed — to catch issues early.</p>
+      </div>
+      <div class="process-step reveal">
+        <span class="step-num">06</span>
+        <h3>Handover &amp; Training</h3>
+        <p>I walk you through how to manage your own store — adding products, updating content — so you're not stuck waiting on me for the basics.</p>
       </div>
     </div>
   </div>
@@ -648,11 +680,11 @@ footer{
 
 <section id="portfolio">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <p class="eyebrow">Recent work</p>
       <h2>Portfolio</h2>
     </div>
-    <div class="portfolio-empty">
+    <div class="portfolio-empty reveal">
       <h3>Building this section with real work</h3>
       <p>Project write-ups are being added here as they're completed — with real client work only. Check back soon, or reach out directly to see examples.</p>
     </div>
@@ -661,30 +693,38 @@ footer{
 
 <section id="faq">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <p class="eyebrow">Questions, answered</p>
       <h2>FAQ</h2>
     </div>
     <div class="faq-list">
-      <details class="faq-item">
+      <details class="faq-item reveal">
         <summary>Who do you work with?</summary>
         <div class="faq-body">Anyone looking to launch or improve an e-commerce store — new business owners setting up their first store, and existing stores that need a redesign, speed fixes, or a platform move.</div>
       </details>
-      <details class="faq-item">
+      <details class="faq-item reveal">
         <summary>How long does a typical project take?</summary>
         <div class="faq-body">It depends on scope — a basic store setup can take a few days, while a full custom build or migration takes longer. You'll get a clear timeline as part of the quote before work starts.</div>
       </details>
-      <details class="faq-item">
+      <details class="faq-item reveal">
         <summary>Do you offer support after the store goes live?</summary>
         <div class="faq-body">Yes — I check in after launch to make sure everything's working correctly, and I'm available for fixes or adjustments afterward.</div>
       </details>
-      <details class="faq-item">
+      <details class="faq-item reveal">
         <summary>What do you need from me to get started?</summary>
         <div class="faq-body">A rough idea of what you're selling, any branding you already have (logo, colors), and access to your store or hosting if one already exists. If you're starting from scratch, I can help you set that up too.</div>
       </details>
-      <details class="faq-item">
+      <details class="faq-item reveal">
         <summary>How do payments work?</summary>
         <div class="faq-body">Pricing is agreed upfront based on the scope of the project. Reach out with details about what you need and I'll send a quote.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Can you work with a store I already have, or do I need to start over?</summary>
+        <div class="faq-body">I can work with an existing store — redesigning it, fixing issues, or optimizing it — without needing to rebuild from scratch, unless a full rebuild genuinely makes more sense for your case.</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>What if I'm not sure exactly what I need yet?</summary>
+        <div class="faq-body">That's fine — that's what the discovery call is for. Reach out with a rough idea of what you're trying to do, and we can figure out the right scope together.</div>
       </details>
     </div>
   </div>
@@ -692,12 +732,12 @@ footer{
 
 <section id="contact">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <p class="eyebrow">Get in touch</p>
       <h2>Let's build your store</h2>
     </div>
     <div class="contact-grid">
-      <a class="contact-card" href="https://wa.me/2347018328464" target="_blank" rel="noopener">
+      <a class="contact-card reveal" href="https://wa.me/2347018328464" target="_blank" rel="noopener">
         <span class="icon">
           <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.001 3C9.1 3 3.5 8.6 3.5 15.5c0 2.4.65 4.65 1.8 6.6L3 29l7.1-2.25a12.4 12.4 0 0 0 5.9 1.5h.01c6.9 0 12.5-5.6 12.5-12.5S22.9 3 16.001 3zm0 22.7h-.01a10.2 10.2 0 0 1-5.2-1.43l-.37-.22-3.86 1.22 1.24-3.76-.24-.39a10.18 10.18 0 0 1-1.56-5.42c0-5.63 4.58-10.2 10.21-10.2 2.73 0 5.29 1.06 7.22 3 1.93 1.93 3 4.49 3 7.22-.01 5.63-4.6 10.2-10.23 10.2zm5.6-7.65c-.31-.15-1.82-.9-2.1-1-.28-.1-.49-.15-.69.15-.2.31-.79 1-.97 1.2-.18.2-.36.23-.67.08-.31-.15-1.3-.48-2.47-1.53-.91-.81-1.53-1.82-1.71-2.12-.18-.31-.02-.47.13-.62.14-.14.31-.36.46-.54.15-.18.2-.31.31-.51.1-.2.05-.39-.02-.54-.08-.15-.69-1.66-.94-2.28-.25-.6-.5-.52-.69-.53h-.59c-.2 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.57s1.1 2.98 1.26 3.19c.15.2 2.17 3.32 5.27 4.65.74.32 1.31.51 1.76.65.74.24 1.41.2 1.94.12.59-.09 1.82-.74 2.08-1.46.26-.72.26-1.33.18-1.46-.08-.13-.28-.2-.59-.35z"/></svg>
         </span>
@@ -707,7 +747,7 @@ footer{
         </span>
       </a>
 
-      <a class="contact-card" href="mailto:bright.zenthropagency@gmail.com" target="_blank" rel="noopener">
+      <a class="contact-card reveal" href="mailto:bright.zenthropagency@gmail.com" target="_blank" rel="noopener">
         <span class="icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5h18v14H3z"/><path d="m3 6 9 7 9-7"/></svg>
         </span>
@@ -717,7 +757,7 @@ footer{
         </span>
       </a>
 
-      <a class="contact-card" href="https://t.me/bright_theexpert" target="_blank" rel="noopener">
+      <a class="contact-card reveal" href="https://telegram.me/bright_theexpert" target="_blank" rel="noopener">
         <span class="icon">
           <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 2.7C8.65 2.7 2.7 8.65 2.7 16S8.65 29.3 16 29.3 29.3 23.35 29.3 16 23.35 2.7 16 2.7zm6.4 9.1-2.2 10.4c-.17.75-.6.93-1.22.58l-3.38-2.49-1.63 1.57c-.18.18-.33.33-.68.33l.24-3.44 6.27-5.66c.27-.24-.06-.38-.42-.14l-7.75 4.88-3.34-1.04c-.73-.23-.74-.73.15-1.08l13.05-5.03c.6-.22 1.13.14.91 1.02z"/></svg>
         </span>
@@ -727,7 +767,7 @@ footer{
         </span>
       </a>
 
-      <a class="contact-card" href="https://www.upwork.com/freelancers/~016c7891ef8f0f1b10?mp_source=share" target="_blank" rel="noopener">
+      <a class="contact-card reveal" href="https://www.upwork.com/freelancers/~016c7891ef8f0f1b10?mp_source=share" target="_blank" rel="noopener">
         <span class="icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7"/><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 12h18M10 12v2a2 2 0 0 0 4 0v-2"/></svg>
         </span>
@@ -760,6 +800,23 @@ footer{
     </nav>
   </div>
 </footer>
+
+<script>
+if('IntersectionObserver' in window){
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => io.observe(el));
+} else {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
+}
+</script>
 
 </body>
 </html>
