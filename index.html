@@ -25,6 +25,9 @@
   --text:#f2ede4;
   --text-muted:#9c9186;
   --radius-hex: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px);
+  --dur:0.3s;
+  --dur-slow:0.6s;
+  --ease:cubic-bezier(.4,0,.2,1);
 }
 
 *{box-sizing:border-box; margin:0; padding:0;}
@@ -84,8 +87,9 @@ header.nav{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(21,16,9,0.94);
-  backdrop-filter:blur(10px);
+  background:rgba(21,16,9,0.7);
+  backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
   border-bottom:1px solid var(--line);
 }
 
@@ -202,8 +206,9 @@ nav.links a:hover, nav.links a:focus-visible{color:var(--text);}
   letter-spacing:0.04em;
   border:1px solid var(--gold);
   clip-path:var(--radius-hex);
-  transition:.2s;
+  transition:transform var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
+.btn:active{transform:scale(0.96);}
 .btn-solid{
   background:var(--gold);
   color:#151009;
@@ -338,7 +343,9 @@ section{
 @media(min-width:600px){.portrait{max-width:130px; border-radius:12px;}}
 .portrait img{
   width:100%; height:100%; object-fit:cover; object-position:top center; display:block;
+  transition:transform var(--dur-slow) var(--ease);
 }
+.portrait:hover img{transform:scale(1.08);}
 .portrait .placeholder{
   font-family:'Syne', sans-serif;
   font-weight:800;
@@ -365,6 +372,83 @@ section{
   color:var(--text);
 }
 .expertise-block .tag-row{margin-top:14px;}
+
+/* ===== COUNTERS ===== */
+#counters{padding:56px 0;}
+.counters-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+  gap:24px;
+  text-align:center;
+}
+.counter-box{
+  padding:24px 12px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:linear-gradient(155deg, var(--surface-2), var(--surface));
+}
+.counter-num{
+  display:block;
+  font-family:'Syne', sans-serif;
+  font-weight:800;
+  font-size:2.4rem;
+  color:var(--gold);
+  line-height:1;
+}
+.counter-label{
+  display:block;
+  margin-top:8px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+}
+
+/* ===== LIGHTBOX ===== */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(10,9,8,0.92);
+  backdrop-filter:blur(6px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:200;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity var(--dur-slow) var(--ease);
+  padding:30px;
+}
+.lightbox.open{
+  opacity:1;
+  pointer-events:auto;
+}
+.lightbox img{
+  max-width:90vw;
+  max-height:85vh;
+  border-radius:10px;
+  border:1px solid var(--line);
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.lightbox-close{
+  position:absolute;
+  top:24px;
+  right:32px;
+  color:var(--text);
+  font-size:2.2rem;
+  cursor:pointer;
+  line-height:1;
+}
+
+/* ===== PAGE LOAD FADE (pure CSS, no JS dependency for safety) ===== */
+body{
+  animation:pageFadeIn .6s ease forwards;
+}
+@keyframes pageFadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
 .tag{
   font-family:'JetBrains Mono', monospace;
   font-size:0.74rem;
@@ -387,11 +471,37 @@ section{
   border:1px solid var(--line);
   clip-path:var(--radius-hex);
   padding:30px 26px;
-  transition:.25s;
+  transition:transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  cursor:pointer;
 }
+.service-card summary{
+  list-style:none;
+  cursor:pointer;
+  position:relative;
+}
+.service-card summary::-webkit-details-marker{display:none;}
+.service-card summary::after{
+  content:'+';
+  position:absolute;
+  top:0;
+  right:0;
+  color:var(--gold);
+  font-size:1.2rem;
+  transition:transform var(--dur) var(--ease);
+}
+.service-card[open] summary::after{transform:rotate(45deg);}
 .service-card:hover{
   border-color:var(--gold);
-  transform:translateY(-4px);
+  transform:translateY(-6px);
+  box-shadow:0 12px 28px rgba(201,162,39,0.12);
+}
+.service-detail{
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+  color:var(--text-muted);
+  font-size:0.88rem;
+  line-height:1.6;
 }
 .service-card .num{
   font-family:'JetBrains Mono', monospace;
@@ -433,6 +543,11 @@ section{
   clip-path:var(--radius-hex);
   padding:36px;
   margin-bottom:24px;
+  transition:border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.project-card:hover{
+  border-color:var(--gold);
+  box-shadow:0 12px 28px rgba(201,162,39,0.1);
 }
 .project-card .project-tag{
   font-family:'JetBrains Mono', monospace;
@@ -491,6 +606,9 @@ section{
 }
 .project-proof figure{
   margin:0;
+  overflow:hidden;
+  border-radius:8px;
+  cursor:pointer;
 }
 .project-proof img{
   width:100%;
@@ -498,6 +616,10 @@ section{
   display:block;
   border-radius:8px;
   border:1px solid var(--line);
+  transition:transform var(--dur-slow) var(--ease);
+}
+.project-proof figure:hover img{
+  transform:scale(1.06);
 }
 .project-proof figcaption{
   font-family:'JetBrains Mono', monospace;
@@ -524,7 +646,11 @@ section{
   border:1px solid var(--line);
   clip-path:var(--radius-hex);
   padding:22px 24px;
-  transition:.2s;
+  transition:transform var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.contact-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 28px rgba(201,162,39,0.12);
 }
 .contact-card:hover, .contact-card:focus-visible{
   border-color:var(--gold);
@@ -567,6 +693,12 @@ section{
   clip-path:var(--radius-hex);
   padding:30px 26px;
   position:relative;
+  transition:transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.process-step:hover{
+  transform:translateY(-6px);
+  border-color:var(--gold);
+  box-shadow:0 12px 28px rgba(201,162,39,0.12);
 }
 .process-step .step-num{
   font-family:'Syne', sans-serif;
@@ -585,122 +717,6 @@ section{
   font-size:0.9rem;
 }
 
-/* ===== REVIEWS ===== */
-.reviews-toolbar{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:36px;
-}
-.review-filter{
-  font-family:'JetBrains Mono', monospace;
-  font-size:0.72rem;
-  letter-spacing:0.05em;
-  text-transform:uppercase;
-  color:var(--text-muted);
-  background:var(--surface);
-  border:1px solid var(--line);
-  clip-path:var(--radius-hex);
-  padding:8px 14px;
-  cursor:pointer;
-  transition:.2s;
-}
-.review-filter:hover{color:var(--text); border-color:var(--gold);}
-.review-filter.active{
-  color:#151009;
-  background:var(--gold);
-  border-color:var(--gold);
-}
-.reviews-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
-  gap:22px;
-}
-.review-card{
-  background:var(--surface);
-  border:1px solid var(--line);
-  clip-path:var(--radius-hex);
-  padding:28px 26px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  transition:.25s;
-}
-.review-card:hover{
-  border-color:var(--gold);
-  transform:translateY(-4px);
-}
-.review-card.hidden-review{display:none;}
-.review-stars{
-  color:var(--gold);
-  font-size:0.95rem;
-  letter-spacing:2px;
-}
-.review-quote{
-  color:var(--text);
-  font-size:0.95rem;
-  line-height:1.6;
-  flex:1;
-}
-.review-quote::before{content:'\201C';}
-.review-quote::after{content:'\201D';}
-.review-meta{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  gap:10px;
-  border-top:1px solid var(--line);
-  padding-top:14px;
-}
-.review-author{
-  font-family:'Syne', sans-serif;
-  font-weight:600;
-  font-size:0.92rem;
-  color:var(--text);
-}
-.review-role{
-  display:block;
-  font-family:'JetBrains Mono', monospace;
-  font-size:0.68rem;
-  color:var(--text-muted);
-  margin-top:3px;
-  text-transform:uppercase;
-  letter-spacing:0.04em;
-}
-.review-date{
-  font-family:'JetBrains Mono', monospace;
-  font-size:0.68rem;
-  color:var(--gold-bright);
-  white-space:nowrap;
-}
-.reviews-summary{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:18px;
-  margin-bottom:28px;
-  padding:20px 24px;
-  background:var(--surface);
-  border:1px solid var(--line);
-  clip-path:var(--radius-hex);
-}
-.reviews-summary .big-stars{
-  color:var(--gold);
-  font-size:1.4rem;
-  letter-spacing:3px;
-}
-.reviews-summary .big-score{
-  font-family:'Syne', sans-serif;
-  font-weight:800;
-  font-size:1.6rem;
-  color:var(--text);
-}
-.reviews-summary .score-note{
-  font-family:'JetBrains Mono', monospace;
-  font-size:0.76rem;
-  color:var(--text-muted);
-}
-
 /* ===== FAQ ===== */
 .faq-list{
   max-width:760px;
@@ -711,6 +727,11 @@ section{
   clip-path:var(--radius-hex);
   margin-bottom:14px;
   overflow:hidden;
+  transition:border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.faq-item:hover{
+  border-color:var(--gold);
+  box-shadow:0 8px 20px rgba(201,162,39,0.08);
 }
 .faq-item summary{
   cursor:pointer;
@@ -861,7 +882,6 @@ footer{
       <a href="#why-choose-me">Why Me</a>
       <a href="#expertise">Expertise</a>
       <a href="#portfolio">Portfolio</a>
-      <a href="#reviews">Reviews</a>
       <a href="#faq">FAQ</a>
     </nav>
     <div class="nav-right">
@@ -933,106 +953,166 @@ footer{
       <h2>Services</h2>
     </div>
     <div class="services-grid">
-      <div class="service-card reveal">
-        <span class="num">🛒 01</span>
-        <h3>Store Setup &amp; Launch</h3>
-        <p>Full store setup from scratch, domain connection, theme install, products, collections, and payments configured and ready to sell.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">🎨 02</span>
-        <h3>Theme Design &amp; Customization</h3>
-        <p>Adjusting and building out themes so your store matches your brand instead of looking like a default template.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">⚡ 03</span>
-        <h3>Store Speed Optimization</h3>
-        <p>Cleaning up bloated code, oversized images, and slow apps so your store loads fast on every device.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">🔄 04</span>
-        <h3>Platform Migration</h3>
-        <p>Moving a store between Shopify, WooCommerce, and Wix carefully, keeping products and data intact.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">🔌 05</span>
-        <h3>App Integration</h3>
-        <p>Setting up reviews, email marketing, and other store apps so they work together instead of against each other.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">📱 06</span>
-        <h3>Mobile Optimization</h3>
-        <p>Making sure the store looks and works properly on phones, not just on a desktop preview.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">🔍 07</span>
-        <h3>SEO Optimization</h3>
-        <p>Structuring product pages, collections, and metadata so your store is actually discoverable in search results.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">📦 08</span>
-        <h3>Inventory &amp; POS Integration</h3>
-        <p>Connecting your online store with physical retail and inventory systems so stock stays accurate across every channel.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">📈 09</span>
-        <h3>Conversion Rate Optimization</h3>
-        <p>Refining product pages, cart flow, and checkout so more visitors actually complete a purchase.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">🛠️ 10</span>
-        <h3>Ongoing Maintenance &amp; Support</h3>
-        <p>Keeping your store updated, fixing issues, and handling small changes after launch so it keeps running smoothly.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">🔒 11</span>
-        <h3>Payment Gateway Setup</h3>
-        <p>Configuring secure, reliable payment options so customers can check out with the methods they trust.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">📊 12</span>
-        <h3>Analytics &amp; Tracking Setup</h3>
-        <p>Setting up analytics and conversion tracking so you can actually see what's working and what isn't.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">🌐 13</span>
-        <h3>Domain &amp; Hosting Setup</h3>
-        <p>Connecting your custom domain and getting hosting configured correctly so your store is properly live.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">🔐 14</span>
-        <h3>Store Security Hardening</h3>
-        <p>Tightening up store access, permissions, and settings to reduce the risk of unauthorized changes or breaches.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">🧾 15</span>
-        <h3>Tax &amp; Shipping Configuration</h3>
-        <p>Setting up accurate tax rules and shipping rates so orders are charged and fulfilled correctly.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">💬 16</span>
-        <h3>Live Chat Integration</h3>
-        <p>Adding live chat or chatbot tools so customers can get quick answers while browsing your store.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">🌍 17</span>
-        <h3>Multi-Currency &amp; International Setup</h3>
-        <p>Configuring your store to sell properly across different countries and currencies.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">🖼️ 18</span>
-        <h3>Product Photography Editing</h3>
-        <p>Cleaning up and formatting product images so they look consistent and professional across your store.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">📧 19</span>
-        <h3>Email Marketing Setup</h3>
-        <p>Setting up abandoned cart emails, order updates, and basic email flows to keep customers engaged.</p>
-      </div>
-      <div class="service-card reveal">
-        <span class="num">🔗 20</span>
-        <h3>Third-Party API Integration</h3>
-        <p>Connecting your store with external tools and services your business already relies on.</p>
-      </div>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">🛒 01</span>
+          <h3>Store Setup &amp; Launch</h3>
+          <p>Full store setup from scratch, domain connection, theme install, products, collections, and payments configured and ready to sell.</p>
+        </summary>
+        <div class="service-detail">This includes setting up your store's structure from the ground up: navigation menus, collections, product upload, shipping zones, and payment providers, so nothing is left half-configured when you go live.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">🎨 02</span>
+          <h3>Theme Design &amp; Customization</h3>
+          <p>Adjusting and building out themes so your store matches your brand instead of looking like a default template.</p>
+        </summary>
+        <div class="service-detail">Rather than using a theme exactly as downloaded, sections get adjusted, colors and fonts get aligned with your brand, and layout quirks get fixed so the store feels intentional, not generic.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">⚡ 03</span>
+          <h3>Store Speed Optimization</h3>
+          <p>Cleaning up bloated code, oversized images, and slow apps so your store loads fast on every device.</p>
+        </summary>
+        <div class="service-detail">This covers compressing images, removing unused app scripts, and cleaning up theme code, since slow load times are one of the biggest reasons visitors leave before buying.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">🔄 04</span>
+          <h3>Platform Migration</h3>
+          <p>Moving a store between Shopify, WooCommerce, and Wix carefully, keeping products and data intact.</p>
+        </summary>
+        <div class="service-detail">Product data, customer records, and order history are mapped and moved carefully between platforms, with testing before and after to make sure nothing gets lost in the process.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">🔌 05</span>
+          <h3>App Integration</h3>
+          <p>Setting up reviews, email marketing, and other store apps so they work together instead of against each other.</p>
+        </summary>
+        <div class="service-detail">Apps get chosen and configured with your specific store in mind, rather than installing everything available, so your store doesn't end up slow and cluttered with tools you don't need.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">📱 06</span>
+          <h3>Mobile Optimization</h3>
+          <p>Making sure the store looks and works properly on phones, not just on a desktop preview.</p>
+        </summary>
+        <div class="service-detail">Every layout gets checked specifically on phone screens, buttons, menus, and checkout, since most traffic to a typical store comes from mobile, not desktop.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">🔍 07</span>
+          <h3>SEO Optimization</h3>
+          <p>Structuring product pages, collections, and metadata so your store is actually discoverable in search results.</p>
+        </summary>
+        <div class="service-detail">Product titles, descriptions, image alt text, and URL structure get reviewed and cleaned up so search engines can actually understand and rank your pages.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">📦 08</span>
+          <h3>Inventory &amp; POS Integration</h3>
+          <p>Connecting your online store with physical retail and inventory systems so stock stays accurate across every channel.</p>
+        </summary>
+        <div class="service-detail">Stock levels get synced between your online store and physical point-of-sale system, so you're not manually updating numbers in two places and risking overselling.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">📈 09</span>
+          <h3>Conversion Rate Optimization</h3>
+          <p>Refining product pages, cart flow, and checkout so more visitors actually complete a purchase.</p>
+        </summary>
+        <div class="service-detail">This looks at where visitors drop off, cluttered product pages, confusing checkout steps, and adjusts them based on what typically improves completed purchases.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">🛠️ 10</span>
+          <h3>Ongoing Maintenance &amp; Support</h3>
+          <p>Keeping your store updated, fixing issues, and handling small changes after launch so it keeps running smoothly.</p>
+        </summary>
+        <div class="service-detail">This covers routine checks, applying updates, fixing small bugs, and handling minor content changes so the store keeps running smoothly long after launch.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">🔒 11</span>
+          <h3>Payment Gateway Setup</h3>
+          <p>Configuring secure, reliable payment options so customers can check out with the methods they trust.</p>
+        </summary>
+        <div class="service-detail">Payment providers get configured and tested end-to-end, including currency settings and fraud protection basics, so transactions go through reliably from day one.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">📊 12</span>
+          <h3>Analytics &amp; Tracking Setup</h3>
+          <p>Setting up analytics and conversion tracking so you can actually see what's working and what isn't.</p>
+        </summary>
+        <div class="service-detail">Tools like Shopify Analytics or Google Analytics get properly connected and configured with the right goals, so the numbers you see actually reflect what matters for your store.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">🌐 13</span>
+          <h3>Domain &amp; Hosting Setup</h3>
+          <p>Connecting your custom domain and getting hosting configured correctly so your store is properly live.</p>
+        </summary>
+        <div class="service-detail">This includes connecting your domain registrar to your store, setting up DNS records correctly, and making sure SSL/security certificates are active.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">🔐 14</span>
+          <h3>Store Security Hardening</h3>
+          <p>Tightening up store access, permissions, and settings to reduce the risk of unauthorized changes or breaches.</p>
+        </summary>
+        <div class="service-detail">Staff access levels, app permissions, and account settings get reviewed and tightened, reducing the chances of unauthorized changes or data exposure.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">🧾 15</span>
+          <h3>Tax &amp; Shipping Configuration</h3>
+          <p>Setting up accurate tax rules and shipping rates so orders are charged and fulfilled correctly.</p>
+        </summary>
+        <div class="service-detail">Tax rules get set up according to where you legally need to charge them, and shipping rates get configured to match your actual carrier costs, not guesswork.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">💬 16</span>
+          <h3>Live Chat Integration</h3>
+          <p>Adding live chat or chatbot tools so customers can get quick answers while browsing your store.</p>
+        </summary>
+        <div class="service-detail">A chat widget gets added and configured with sensible default responses, so customers browsing your store can get quick answers instead of abandoning their visit.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">🌍 17</span>
+          <h3>Multi-Currency &amp; International Setup</h3>
+          <p>Configuring your store to sell properly across different countries and currencies.</p>
+        </summary>
+        <div class="service-detail">Currency conversion, region-specific pricing, and international shipping settings get configured so customers outside your home country have a smooth experience too.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">🖼️ 18</span>
+          <h3>Product Photography Editing</h3>
+          <p>Cleaning up and formatting product images so they look consistent and professional across your store.</p>
+        </summary>
+        <div class="service-detail">Background cleanup, consistent cropping, and color correction get applied across your product images so your catalog looks unified rather than mismatched.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">📧 19</span>
+          <h3>Email Marketing Setup</h3>
+          <p>Setting up abandoned cart emails, order updates, and basic email flows to keep customers engaged.</p>
+        </summary>
+        <div class="service-detail">Automated flows like abandoned cart reminders and order confirmations get built out, so follow-up with customers happens without you manually sending every email.</div>
+      </details>
+      <details class="service-card reveal">
+        <summary>
+          <span class="num">🔗 20</span>
+          <h3>Third-Party API Integration</h3>
+          <p>Connecting your store with external tools and services your business already relies on.</p>
+        </summary>
+        <div class="service-detail">Whether it's a CRM, an inventory system, or another business tool, integrations get set up and tested so data flows correctly between your store and the tools you already use.</div>
+      </details>
     </div>
   </div>
 </section>
@@ -1083,6 +1163,29 @@ footer{
         <span class="step-num">📈 08</span>
         <h3>Ongoing Improvements</h3>
         <p>As your store grows, I'm available to make updates, add features, or adjust things based on what you're learning from real customers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="counters">
+  <div class="wrap">
+    <div class="counters-grid">
+      <div class="counter-box reveal">
+        <span class="counter-num" data-target="7" data-suffix="+">0</span>
+        <span class="counter-label">Years Experience</span>
+      </div>
+      <div class="counter-box reveal">
+        <span class="counter-num" data-target="20" data-suffix="">0</span>
+        <span class="counter-label">Services Offered</span>
+      </div>
+      <div class="counter-box reveal">
+        <span class="counter-num" data-target="8" data-suffix="">0</span>
+        <span class="counter-label">Step Process</span>
+      </div>
+      <div class="counter-box reveal">
+        <span class="counter-num" data-target="8" data-suffix="">0</span>
+        <span class="counter-label">Platforms &amp; Tools Used</span>
       </div>
     </div>
   </div>
@@ -1236,503 +1339,6 @@ footer{
   </div>
 </section>
 
-<section id="reviews">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <p class="eyebrow">Client feedback, 2021 – 2026</p>
-      <h2>Reviews</h2>
-    </div>
-
-    <div class="reviews-summary reveal">
-      <span class="big-stars">★★★★★</span>
-      <span class="big-score">4.9 / 5</span>
-      <span class="score-note">Based on 52 client reviews across Shopify, WooCommerce &amp; Wix projects, 2021–2026</span>
-    </div>
-
-    <div class="reviews-toolbar reveal">
-      <button class="review-filter active" data-filter="all">All</button>
-      <button class="review-filter" data-filter="2026">2026</button>
-      <button class="review-filter" data-filter="2025">2025</button>
-      <button class="review-filter" data-filter="2024">2024</button>
-      <button class="review-filter" data-filter="2023">2023</button>
-      <button class="review-filter" data-filter="2022">2022</button>
-      <button class="review-filter" data-filter="2021">2021</button>
-    </div>
-
-    <div class="reviews-grid" id="reviewsGrid">
-
-      <div class="review-card reveal" data-year="2026">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Bright rebuilt our checkout flow and shaved almost 2 seconds off our load time. Conversion rate went up within the first two weeks. Communicated clearly the whole way through.</p>
-        <div class="review-meta">
-          <span class="review-author">Tolu A.<span class="review-role">Store Speed Optimization</span></span>
-          <span class="review-date">Jul 2026</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2026">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Migrated our store from WooCommerce to Shopify without losing a single product or order record. Genuinely stress-free, which is not what I expected from a platform move.</p>
-        <div class="review-meta">
-          <span class="review-author">Ngozi E.<span class="review-role">Platform Migration</span></span>
-          <span class="review-date">Jun 2026</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2026">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Our product pages finally look like they belong to the same brand. Bright matched our theme to our actual packaging and it shows in how much longer people stay on the site.</p>
-        <div class="review-meta">
-          <span class="review-author">Grace O.<span class="review-role">Theme Design &amp; Customization</span></span>
-          <span class="review-date">Mar 2026</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2025">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Launched our first ever online store with Bright's help. He explained every step so we weren't just handed a finished thing we didn't understand. Still comes back for small tweaks.</p>
-        <div class="review-meta">
-          <span class="review-author">Chinedu K.<span class="review-role">Store Setup &amp; Launch</span></span>
-          <span class="review-date">Nov 2025</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2025">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Our abandoned cart emails alone paid for the project within a month. Simple setup, but nobody had actually configured it properly before Bright looked at it.</p>
-        <div class="review-meta">
-          <span class="review-author">Amara N.<span class="review-role">Email Marketing Setup</span></span>
-          <span class="review-date">Sep 2025</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2025">
-        <span class="review-stars">★★★★☆</span>
-        <p class="review-quote">Good SEO cleanup work, our product pages now actually show up in search instead of being buried. Took a little longer than the original estimate but the results were worth it.</p>
-        <div class="review-meta">
-          <span class="review-author">Femi B.<span class="review-role">SEO Optimization</span></span>
-          <span class="review-date">Jun 2025</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2025">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">We needed our POS and online inventory to actually agree with each other, and Bright sorted that out completely. No more overselling items that were already out of stock in-store.</p>
-        <div class="review-meta">
-          <span class="review-author">Ifeoma S.<span class="review-role">Inventory &amp; POS Integration</span></span>
-          <span class="review-date">Feb 2025</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2024">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Our mobile bounce rate was terrible before this. After the mobile optimization pass, people actually complete checkout on their phones now instead of giving up halfway.</p>
-        <div class="review-meta">
-          <span class="review-author">David M.<span class="review-role">Mobile Optimization</span></span>
-          <span class="review-date">Oct 2024</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2024">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Set up international shipping and multi-currency pricing for us ahead of a big expansion push. Everything calculated correctly on the first test order, which honestly surprised me.</p>
-        <div class="review-meta">
-          <span class="review-author">Blessing U.<span class="review-role">Multi-Currency &amp; International Setup</span></span>
-          <span class="review-date">Jul 2024</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2024">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Our product photos looked inconsistent across the catalog before this. Bright cleaned them all up so the store finally looks put-together instead of thrown together.</p>
-        <div class="review-meta">
-          <span class="review-author">Kemi T.<span class="review-role">Product Photography Editing</span></span>
-          <span class="review-date">Apr 2024</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2024">
-        <span class="review-stars">★★★★☆</span>
-        <p class="review-quote">Payment gateway setup was smooth and secure, exactly what we needed before our launch date. One small hiccup with a test transaction but it was fixed same day.</p>
-        <div class="review-meta">
-          <span class="review-author">Segun A.<span class="review-role">Payment Gateway Setup</span></span>
-          <span class="review-date">Jan 2024</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2023">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Bright has kept our store running smoothly for almost a year now under an ongoing maintenance arrangement. Small fixes get handled fast, nothing ever sits broken for long.</p>
-        <div class="review-meta">
-          <span class="review-author">Adaeze F.<span class="review-role">Ongoing Maintenance &amp; Support</span></span>
-          <span class="review-date">Nov 2023</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2023">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">We finally have real analytics tracking instead of guessing what's working. Bright set up conversion tracking that actually maps to our sales, not just page views.</p>
-        <div class="review-meta">
-          <span class="review-author">Michael O.<span class="review-role">Analytics &amp; Tracking Setup</span></span>
-          <span class="review-date">Aug 2023</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2023">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Domain and hosting migration for our store went off without any downtime our customers noticed. Handled the DNS side of things I would have definitely messed up myself.</p>
-        <div class="review-meta">
-          <span class="review-author">Halima Y.<span class="review-role">Domain &amp; Hosting Setup</span></span>
-          <span class="review-date">May 2023</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2023">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Added live chat to the store and it's changed how many questions turn into actual sales instead of people just leaving. Setup was quick and Bright configured the automated replies well.</p>
-        <div class="review-meta">
-          <span class="review-author">Oluwaseun R.<span class="review-role">Live Chat Integration</span></span>
-          <span class="review-date">Feb 2023</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2022">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Tax and shipping rules were a mess across our regions before this. Bright got everything charging correctly, which saved us from a few awkward refund conversations with customers.</p>
-        <div class="review-meta">
-          <span class="review-author">Patricia N.<span class="review-role">Tax &amp; Shipping Configuration</span></span>
-          <span class="review-date">Sep 2022</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2022">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Connected our store to a third-party fulfillment API that our previous developer said wasn't possible. Bright made it work and explained exactly how it fits together.</p>
-        <div class="review-meta">
-          <span class="review-author">Emeka C.<span class="review-role">Third-Party API Integration</span></span>
-          <span class="review-date">Apr 2022</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2021">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">One of the first developers I worked with when starting out in e-commerce. Store security was tightened up properly after a scare with unauthorized access, and it's held up since.</p>
-        <div class="review-meta">
-          <span class="review-author">Yetunde A.<span class="review-role">Store Security Hardening</span></span>
-          <span class="review-date">Aug 2021</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2026">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Bright took us from zero to a fully working store in under two weeks, right down to collections and payment options. Nothing felt rushed.</p>
-        <div class="review-meta">
-          <span class="review-author">Chiamaka L.<span class="review-role">Store Setup & Launch</span></span>
-          <span class="review-date">May 2026</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2026">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Reworked our product page layout and cart flow. Add-to-cart rate went up noticeably within the first week of changes going live.</p>
-        <div class="review-meta">
-          <span class="review-author">Rasheed I.<span class="review-role">Conversion Rate Optimization</span></span>
-          <span class="review-date">Apr 2026</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2026">
-        <span class="review-stars">★★★★☆</span>
-        <p class="review-quote">Got our reviews app and loyalty app talking to each other properly instead of conflicting. Took a bit of back and forth but the end result works well.</p>
-        <div class="review-meta">
-          <span class="review-author">Wendy K.<span class="review-role">App Integration</span></span>
-          <span class="review-date">Feb 2026</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2026">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Our store finally reflects our actual brand instead of a stock theme. Customers have commented on how much more premium it looks now.</p>
-        <div class="review-meta">
-          <span class="review-author">Obinna P.<span class="review-role">Theme Design & Customization</span></span>
-          <span class="review-date">Jan 2026</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2025">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Moved us from Wix to Shopify ahead of the holiday season with zero downtime. Braver than I would have been attempting that migration during peak sales.</p>
-        <div class="review-meta">
-          <span class="review-author">Simisola A.<span class="review-role">Platform Migration</span></span>
-          <span class="review-date">Dec 2025</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2025">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Our product pages used to crawl on mobile data. After the optimization pass they load almost instantly, even on a weak connection.</p>
-        <div class="review-meta">
-          <span class="review-author">Umar B.<span class="review-role">Store Speed Optimization</span></span>
-          <span class="review-date">Oct 2025</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2025">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Redid our mobile checkout and it's like a completely different store now. Customers stopped complaining about the buttons being too small to tap.</p>
-        <div class="review-meta">
-          <span class="review-author">Nkechi D.<span class="review-role">Mobile Optimization</span></span>
-          <span class="review-date">Aug 2025</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2025">
-        <span class="review-stars">★★★★☆</span>
-        <p class="review-quote">Solid SEO work on our collection pages, we're now ranking for terms we weren't showing up for at all before. Reporting could have been a bit more detailed but results speak for themselves.</p>
-        <div class="review-meta">
-          <span class="review-author">Tunde F.<span class="review-role">SEO Optimization</span></span>
-          <span class="review-date">Jul 2025</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2025">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">First time launching an online store and Bright made the whole process approachable. Answered every question without making me feel behind.</p>
-        <div class="review-meta">
-          <span class="review-author">Precious G.<span class="review-role">Store Setup & Launch</span></span>
-          <span class="review-date">May 2025</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2025">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Our warehouse stock and website stock finally match in real time. Ended the constant back-and-forth of manually updating both.</p>
-        <div class="review-meta">
-          <span class="review-author">Kelechi H.<span class="review-role">Inventory & POS Integration</span></span>
-          <span class="review-date">Apr 2025</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2025">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Set up our full email flow, welcome series, abandoned cart, post-purchase. Already seeing repeat customers coming from these emails.</p>
-        <div class="review-meta">
-          <span class="review-author">Aisha J.<span class="review-role">Email Marketing Setup</span></span>
-          <span class="review-date">Jan 2025</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2024">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Needed multiple payment options live before Black Friday and Bright delivered with time to spare for testing. Everything processed cleanly.</p>
-        <div class="review-meta">
-          <span class="review-author">Ebuka L.<span class="review-role">Payment Gateway Setup</span></span>
-          <span class="review-date">Dec 2024</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2024">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Connected our custom domain and sorted out an SSL issue our old developer never resolved. Site finally shows as fully secure.</p>
-        <div class="review-meta">
-          <span class="review-author">Folasade M.<span class="review-role">Domain & Hosting Setup</span></span>
-          <span class="review-date">Nov 2024</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2024">
-        <span class="review-stars">★★★★☆</span>
-        <p class="review-quote">Integrated our store with our accounting software's API. There was a slight delay getting the sandbox access sorted but the final setup runs smoothly.</p>
-        <div class="review-meta">
-          <span class="review-author">Victor N.<span class="review-role">Third-Party API Integration</span></span>
-          <span class="review-date">Sep 2024</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2024">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">We now actually know which ads are converting instead of guessing. The tracking setup Bright did lines up with our ad platform reporting perfectly.</p>
-        <div class="review-meta">
-          <span class="review-author">Bimpe O.<span class="review-role">Analytics & Tracking Setup</span></span>
-          <span class="review-date">Aug 2024</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2024">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Expanded to two new countries and needed currency and shipping to work correctly for each. Tested every scenario before handing it back to us.</p>
-        <div class="review-meta">
-          <span class="review-author">Ahmed Q.<span class="review-role">Multi-Currency & International Setup</span></span>
-          <span class="review-date">Jun 2024</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2024">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Cleaned up over 200 product images to a consistent style. Store looks far more cohesive and professional now.</p>
-        <div class="review-meta">
-          <span class="review-author">Chidera R.<span class="review-role">Product Photography Editing</span></span>
-          <span class="review-date">Mar 2024</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2024">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Live chat setup has genuinely reduced our support emails. Automated responses handle the repetitive questions so we can focus on the harder ones.</p>
-        <div class="review-meta">
-          <span class="review-author">Oyinkansola S.<span class="review-role">Live Chat Integration</span></span>
-          <span class="review-date">Feb 2024</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2023">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Been on a monthly support arrangement with Bright for a while now. Issues get flagged and fixed fast, usually before I've even finished explaining them.</p>
-        <div class="review-meta">
-          <span class="review-author">Kunle T.<span class="review-role">Ongoing Maintenance & Support</span></span>
-          <span class="review-date">Dec 2023</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2023">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Our shipping rates were charging incorrectly for certain regions for months before this. Fixed and double-checked against real orders.</p>
-        <div class="review-meta">
-          <span class="review-author">Ijeoma U.<span class="review-role">Tax & Shipping Configuration</span></span>
-          <span class="review-date">Oct 2023</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2023">
-        <span class="review-stars">★★★★☆</span>
-        <p class="review-quote">Tightened up admin access and removed some old unused staff accounts we'd forgotten about. Straightforward, no-nonsense work.</p>
-        <div class="review-meta">
-          <span class="review-author">Bashir V.<span class="review-role">Store Security Hardening</span></span>
-          <span class="review-date">Sep 2023</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2023">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Second project with Bright and just as smooth as the first. He remembered our brand guidelines from the previous job without needing to re-explain everything.</p>
-        <div class="review-meta">
-          <span class="review-author">Adaobi W.<span class="review-role">Theme Design & Customization</span></span>
-          <span class="review-date">Jul 2023</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2023">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Cut our homepage load time significantly by cleaning up unused apps and oversized images. Didn't realize how much bloat had built up over the years.</p>
-        <div class="review-meta">
-          <span class="review-author">Emmanuel X.<span class="review-role">Store Speed Optimization</span></span>
-          <span class="review-date">Apr 2023</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2023">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Migrated from a custom-built site to Shopify. All our historical orders and customer data came across intact, which I was genuinely worried about.</p>
-        <div class="review-meta">
-          <span class="review-author">Funmilayo Y.<span class="review-role">Platform Migration</span></span>
-          <span class="review-date">Feb 2023</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2022">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Launched right before the holidays and everything held up under the traffic. Glad we didn't wait until the last minute to get this done.</p>
-        <div class="review-meta">
-          <span class="review-author">Chukwudi Z.<span class="review-role">Store Setup & Launch</span></span>
-          <span class="review-date">Dec 2022</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2022">
-        <span class="review-stars">★★★★☆</span>
-        <p class="review-quote">Simplified our checkout from five steps down to two. Fewer people seem to be dropping off midway through now.</p>
-        <div class="review-meta">
-          <span class="review-author">Nneka A.<span class="review-role">Conversion Rate Optimization</span></span>
-          <span class="review-date">Nov 2022</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2022">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Our mobile traffic is over 70% of visitors, so this mattered a lot. Store now actually feels designed for phones instead of just squeezed onto one.</p>
-        <div class="review-meta">
-          <span class="review-author">Rotimi B.<span class="review-role">Mobile Optimization</span></span>
-          <span class="review-date">Sep 2022</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2022">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Connected our subscription app to our fulfillment workflow so recurring orders process automatically now instead of needing manual entry each time.</p>
-        <div class="review-meta">
-          <span class="review-author">Uche C.<span class="review-role">App Integration</span></span>
-          <span class="review-date">Jul 2022</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2022">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Product descriptions and metadata were basically empty before this project. Now our pages actually have a shot at ranking for relevant searches.</p>
-        <div class="review-meta">
-          <span class="review-author">Zainab D.<span class="review-role">SEO Optimization</span></span>
-          <span class="review-date">May 2022</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2022">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Sorted out a messy DNS setup left behind by a previous developer. Took some patience on Bright's part but got it working without breaking our email.</p>
-        <div class="review-meta">
-          <span class="review-author">Ikenna E.<span class="review-role">Domain & Hosting Setup</span></span>
-          <span class="review-date">Mar 2022</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2021">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Set up our first ever abandoned cart sequence. Immediately started recovering sales we were previously just losing outright.</p>
-        <div class="review-meta">
-          <span class="review-author">Temitope F.<span class="review-role">Email Marketing Setup</span></span>
-          <span class="review-date">Dec 2021</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2021">
-        <span class="review-stars">★★★★☆</span>
-        <p class="review-quote">Got two separate payment providers working side by side for us. A little slow to start due to provider approval delays outside of Bright's control, but solid once live.</p>
-        <div class="review-meta">
-          <span class="review-author">Godwin G.<span class="review-role">Payment Gateway Setup</span></span>
-          <span class="review-date">Nov 2021</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2021">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Our very first store build, and honestly it gave us the confidence to keep growing the business online. Still recommend Bright to other small business owners.</p>
-        <div class="review-meta">
-          <span class="review-author">Chinonso H.<span class="review-role">Store Setup & Launch</span></span>
-          <span class="review-date">Oct 2021</span>
-        </div>
-      </div>
-
-      <div class="review-card reveal" data-year="2021">
-        <span class="review-stars">★★★★★</span>
-        <p class="review-quote">Basic but essential setup work, conversion tracking and a clean dashboard we could actually understand without a marketing background.</p>
-        <div class="review-meta">
-          <span class="review-author">Damilola I.<span class="review-role">Analytics & Tracking Setup</span></span>
-          <span class="review-date">Sep 2021</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <section id="faq">
   <div class="wrap">
     <div class="section-head reveal">
@@ -1853,7 +1459,6 @@ footer{
         <a href="#why-choose-me">Why Me</a>
         <a href="#expertise">Expertise</a>
         <a href="#portfolio">Portfolio</a>
-        <a href="#reviews">Reviews</a>
         <a href="#faq">FAQ</a>
       </div>
 
@@ -1892,20 +1497,6 @@ if(menuToggle && mainNav){
     });
   });
 }
-
-const reviewFilters = document.querySelectorAll('.review-filter');
-const reviewCards = document.querySelectorAll('#reviewsGrid .review-card');
-reviewFilters.forEach(btn => {
-  btn.addEventListener('click', () => {
-    reviewFilters.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter = btn.getAttribute('data-filter');
-    reviewCards.forEach(card => {
-      const show = filter === 'all' || card.getAttribute('data-year') === filter;
-      card.classList.toggle('hidden-review', !show);
-    });
-  });
-});
 
 function revealIfVisible(){
   const vh = window.innerHeight || document.documentElement.clientHeight;
@@ -1946,6 +1537,53 @@ function revealLoop(){
 requestAnimationFrame(revealLoop);
 window.addEventListener('touchmove', revealIfVisible, { passive: true });
 window.addEventListener('scroll', revealIfVisible, { passive: true });
+
+// Animated counters
+const counterEls = document.querySelectorAll('.counter-num');
+let countersStarted = false;
+function animateCounters(){
+  if(countersStarted) return;
+  const box = document.querySelector('.counters-grid');
+  if(!box) return;
+  const rect = box.getBoundingClientRect();
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+  if(rect.top < vh - 40 && rect.bottom > 0){
+    countersStarted = true;
+    counterEls.forEach(el => {
+      const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+      const suffix = el.getAttribute('data-suffix') || '';
+      const duration = 1200;
+      const startTime = performance.now();
+      function tick(now){
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if(progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+}
+window.addEventListener('scroll', animateCounters, { passive: true });
+window.addEventListener('load', animateCounters);
+requestAnimationFrame(animateCounters);
+
+// Portfolio image lightbox
+const lightbox = document.createElement('div');
+lightbox.className = 'lightbox';
+lightbox.innerHTML = '<span class="lightbox-close">&times;</span><img alt="Enlarged proof screenshot">';
+document.body.appendChild(lightbox);
+const lightboxImg = lightbox.querySelector('img');
+document.querySelectorAll('.project-proof img').forEach(img => {
+  img.addEventListener('click', () => {
+    lightboxImg.src = img.src;
+    lightbox.classList.add('open');
+  });
+});
+lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') lightbox.classList.remove('open');
+});
 window.addEventListener('resize', revealIfVisible);
 </script>
 
