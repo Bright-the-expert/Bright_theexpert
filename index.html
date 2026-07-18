@@ -761,12 +761,11 @@ body{
   font-size:0.92rem;
 }
 
-/* ===== SCROLL REVEAL ===== */
+/* ===== SCROLL REVEAL (repeats every time an element enters/leaves view) ===== */
 .reveal{
   opacity:0;
   transform:translateY(28px) scale(0.97);
   transition:opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1);
-  animation:cssFallbackReveal 0.01s linear 3.5s forwards;
 }
 .reveal.in-view{
   opacity:1;
@@ -777,7 +776,6 @@ body{
   opacity:0;
   transform:translateX(-32px);
   transition:opacity .65s ease, transform .65s ease;
-  animation:cssFallbackReveal 0.01s linear 3.5s forwards;
 }
 .reveal-left.in-view{
   opacity:1;
@@ -788,15 +786,10 @@ body{
   opacity:0;
   transform:translateX(32px);
   transition:opacity .65s ease, transform .65s ease;
-  animation:cssFallbackReveal 0.01s linear 3.5s forwards;
 }
 .reveal-right.in-view{
   opacity:1;
   transform:translateX(0);
-}
-
-@keyframes cssFallbackReveal{
-  to{opacity:1; transform:none;}
 }
 
 /* Staggered delays for grid/list children */
@@ -1544,45 +1537,16 @@ if(menuToggle && mainNav){
   });
 }
 
-function revealIfVisible(){
+function updateReveals(){
   const vh = window.innerHeight || document.documentElement.clientHeight;
-  let remaining = false;
-  document.querySelectorAll('.reveal:not(.in-view), .reveal-left:not(.in-view), .reveal-right:not(.in-view)').forEach(el => {
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
     const rect = el.getBoundingClientRect();
-    if(rect.top < vh - 40 && rect.bottom > 0){
-      el.classList.add('in-view');
-    } else {
-      remaining = true;
-    }
+    const visible = rect.top < vh - 40 && rect.bottom > 40;
+    el.classList.toggle('in-view', visible);
   });
-  return remaining;
+  requestAnimationFrame(updateReveals);
 }
-
-if('IntersectionObserver' in window){
-  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add('in-view');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-  revealEls.forEach(el => io.observe(el));
-} else {
-  document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
-}
-
-// Continuous check independent of scroll/touch event throttling on real mobile browsers
-function revealLoop(){
-  const stillHidden = revealIfVisible();
-  if(stillHidden){
-    requestAnimationFrame(revealLoop);
-  }
-}
-requestAnimationFrame(revealLoop);
-window.addEventListener('touchmove', revealIfVisible, { passive: true });
-window.addEventListener('scroll', revealIfVisible, { passive: true });
+requestAnimationFrame(updateReveals);
 
 // Animated counters
 const counterEls = document.querySelectorAll('.counter-num');
@@ -1630,7 +1594,7 @@ lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape') lightbox.classList.remove('open');
 });
-window.addEventListener('resize', revealIfVisible);
+
 </script>
 
 </body>
