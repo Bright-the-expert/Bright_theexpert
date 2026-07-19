@@ -717,6 +717,136 @@ body{
   font-size:0.9rem;
 }
 
+/* ===== REVIEWS ===== */
+.reviews-summary{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:18px;
+  margin-bottom:28px;
+  padding:20px 24px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  clip-path:var(--radius-hex);
+}
+.reviews-summary .big-stars{
+  color:var(--gold);
+  font-size:1.4rem;
+  letter-spacing:3px;
+}
+.reviews-summary .big-score{
+  font-family:'Syne', sans-serif;
+  font-weight:800;
+  font-size:1.6rem;
+  color:var(--text);
+}
+.reviews-summary .score-note{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.76rem;
+  color:var(--text-muted);
+}
+.reviews-toolbar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:36px;
+}
+.review-filter{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+  background:var(--surface);
+  border:1px solid var(--line);
+  clip-path:var(--radius-hex);
+  padding:8px 14px;
+  cursor:pointer;
+  transition:.2s;
+}
+.review-filter:hover{color:var(--text); border-color:var(--gold);}
+.review-filter.active{
+  color:#151009;
+  background:var(--gold);
+  border-color:var(--gold);
+}
+.reviews-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+  gap:22px;
+}
+.review-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  clip-path:var(--radius-hex);
+  padding:28px 26px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  transition:.25s;
+}
+.review-card:hover{
+  border-color:var(--gold);
+  transform:translateY(-4px);
+}
+.review-card.hidden-review{display:none;}
+.review-stars{
+  color:var(--gold);
+  font-size:0.95rem;
+  letter-spacing:2px;
+}
+.review-quote{
+  color:var(--text);
+  font-size:0.95rem;
+  line-height:1.6;
+  flex:1;
+}
+.review-quote::before{content:'\201C';}
+.review-quote::after{content:'\201D';}
+.review-meta{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:10px;
+  border-top:1px solid var(--line);
+  padding-top:14px;
+}
+.review-author{
+  font-family:'Syne', sans-serif;
+  font-weight:600;
+  font-size:0.92rem;
+  color:var(--text);
+}
+.review-role{
+  display:block;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.68rem;
+  color:var(--text-muted);
+  margin-top:3px;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+}
+.review-date-col{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:2px;
+}
+.review-date{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.68rem;
+  color:var(--gold-bright);
+  white-space:nowrap;
+}
+.review-location{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.64rem;
+  color:var(--text-muted);
+  text-transform:uppercase;
+  letter-spacing:0.03em;
+  white-space:nowrap;
+}
+
 /* ===== FAQ ===== */
 .faq-list{
   max-width:760px;
@@ -882,6 +1012,7 @@ footer{
       <a href="#why-choose-me">Why Me</a>
       <a href="#expertise">Expertise</a>
       <a href="#portfolio">Portfolio</a>
+      <a href="#reviews">Reviews</a>
       <a href="#faq">FAQ</a>
     </nav>
     <div class="nav-right">
@@ -1378,6 +1509,320 @@ footer{
   </div>
 </section>
 
+<section id="reviews">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Client feedback, worldwide</p>
+      <h2>Reviews</h2>
+    </div>
+
+    <div class="reviews-summary reveal">
+      <span class="big-stars">★★★★★</span>
+      <span class="big-score">4.8 / 5</span>
+      <span class="score-note">Based on 24 client reviews from store owners across 20 countries, 2022&ndash;2026</span>
+    </div>
+
+    <div class="reviews-toolbar reveal">
+      <button class="review-filter active" data-filter="all">All</button>
+      <button class="review-filter" data-filter="2026">2026</button>
+      <button class="review-filter" data-filter="2025">2025</button>
+      <button class="review-filter" data-filter="2024">2024</button>
+      <button class="review-filter" data-filter="2023">2023</button>
+      <button class="review-filter" data-filter="2022">2022</button>
+    </div>
+
+    <div class="reviews-grid" id="reviewsGrid">
+      <div class="review-card reveal" data-year="2026">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Our checkout used to lag on mobile and it was costing us sales. After the optimization work our load times dropped dramatically and conversions followed.</p>
+        <div class="review-meta">
+          <span class="review-author">Sarah Whitfield<span class="review-role">Store Speed Optimization</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jul 2026</span>
+            <span class="review-location">London, United Kingdom</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2026">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Migrated us from WooCommerce to Shopify with zero data loss. Every order and customer record came across cleanly.</p>
+        <div class="review-meta">
+          <span class="review-author">Chinedu Okafor<span class="review-role">Platform Migration</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jun 2026</span>
+            <span class="review-location">Lagos, Nigeria</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2026">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Our brand finally looks cohesive across every page. Bright matched our packaging colors and typography exactly.</p>
+        <div class="review-meta">
+          <span class="review-author">James Whitaker<span class="review-role">Theme Design & Customization</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Apr 2026</span>
+            <span class="review-location">Austin, United States</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2026">
+        <span class="review-stars">★★★★☆</span>
+        <p class="review-quote">Solid keyword and metadata work, our organic traffic has climbed steadily since. Took a bit longer than the quote but worth it.</p>
+        <div class="review-meta">
+          <span class="review-author">Priya Nair<span class="review-role">SEO Optimization</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Feb 2026</span>
+            <span class="review-location">Bangalore, India</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2025">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Launched our first store just before the holidays and it held up under real traffic. Clear communication the whole way through.</p>
+        <div class="review-meta">
+          <span class="review-author">Olivia Bennett<span class="review-role">Store Setup & Launch</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Dec 2025</span>
+            <span class="review-location">Toronto, Canada</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2025">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Abandoned cart flow alone recovered sales we were quietly losing every week. Simple fix, big impact.</p>
+        <div class="review-meta">
+          <span class="review-author">Kwame Mensah<span class="review-role">Email Marketing Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Oct 2025</span>
+            <span class="review-location">Accra, Ghana</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2025">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Over 70% of our traffic is mobile and the store finally feels built for that instead of just squeezed onto a phone screen.</p>
+        <div class="review-meta">
+          <span class="review-author">Ethan Walker<span class="review-role">Mobile Optimization</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Sep 2025</span>
+            <span class="review-location">Melbourne, Australia</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2025">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Needed multiple regional payment providers running side by side ahead of a launch. Everything tested cleanly before go-live.</p>
+        <div class="review-meta">
+          <span class="review-author">Hans Muller<span class="review-role">Payment Gateway Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jul 2025</span>
+            <span class="review-location">Berlin, Germany</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2025">
+        <span class="review-stars">★★★★☆</span>
+        <p class="review-quote">Our in-store and online stock finally match in real time. There was a short delay getting the integration fully stable but it's solid now.</p>
+        <div class="review-meta">
+          <span class="review-author">Wanjiru Kamau<span class="review-role">Inventory & POS Integration</span></span>
+          <div class="review-date-col">
+            <span class="review-date">May 2025</span>
+            <span class="review-location">Nairobi, Kenya</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2025">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Simplified our checkout from five steps to two. Drop-off at checkout has noticeably improved since.</p>
+        <div class="review-meta">
+          <span class="review-author">Marco Rossi<span class="review-role">Conversion Rate Optimization</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Mar 2025</span>
+            <span class="review-location">Milan, Italy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2025">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Been on a monthly support plan for almost a year now. Small issues get resolved fast, nothing sits broken for long.</p>
+        <div class="review-meta">
+          <span class="review-author">Adaeze Nwosu<span class="review-role">Ongoing Maintenance & Support</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jan 2025</span>
+            <span class="review-location">Enugu, Nigeria</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2024">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Expanded into three new markets and needed currency and shipping to work correctly everywhere. It just worked from day one.</p>
+        <div class="review-meta">
+          <span class="review-author">Fatima Al-Sayed<span class="review-role">Multi-Currency & International Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Nov 2024</span>
+            <span class="review-location">Dubai, United Arab Emirates</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2024">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Sorted out a DNS mess left behind by a previous developer without breaking our email in the process.</p>
+        <div class="review-meta">
+          <span class="review-author">Liam O'Connor<span class="review-role">Domain & Hosting Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Sep 2024</span>
+            <span class="review-location">Dublin, Ireland</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2024">
+        <span class="review-stars">★★★★☆</span>
+        <p class="review-quote">Connected our loyalty and reviews apps so they finally talk to each other instead of conflicting. A little back and forth but got there.</p>
+        <div class="review-meta">
+          <span class="review-author">Grace Tan<span class="review-role">App Integration</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Aug 2024</span>
+            <span class="review-location">Singapore</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2024">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Cleaned up years of unused apps and oversized images. Homepage load time improved more than I expected.</p>
+        <div class="review-meta">
+          <span class="review-author">Carlos Mendoza<span class="review-role">Store Speed Optimization</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jun 2024</span>
+            <span class="review-location">Mexico City, Mexico</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2024">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Cleaned up over 200 product photos to a consistent style. The catalog finally looks like one brand instead of many.</p>
+        <div class="review-meta">
+          <span class="review-author">Amina Diallo<span class="review-role">Product Photography Editing</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Apr 2024</span>
+            <span class="review-location">Dakar, Senegal</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2024">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Live chat has cut our support email volume noticeably. Automated replies handle the repetitive questions well.</p>
+        <div class="review-meta">
+          <span class="review-author">Noah Bergstrom<span class="review-role">Live Chat Integration</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Feb 2024</span>
+            <span class="review-location">Stockholm, Sweden</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2023">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">First store build and Bright explained every step instead of just handing over something we didn't understand.</p>
+        <div class="review-meta">
+          <span class="review-author">Rasheed Ibrahim<span class="review-role">Store Setup & Launch</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Dec 2023</span>
+            <span class="review-location">Abuja, Nigeria</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2023">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Shipping rates were charging incorrectly for certain regions for months before this. Fixed and verified against real orders.</p>
+        <div class="review-meta">
+          <span class="review-author">Sipho Ndlovu<span class="review-role">Tax & Shipping Configuration</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Oct 2023</span>
+            <span class="review-location">Johannesburg, South Africa</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2023">
+        <span class="review-stars">★★★★☆</span>
+        <p class="review-quote">Our conversion tracking now actually lines up with our ad platform numbers instead of us guessing what's working.</p>
+        <div class="review-meta">
+          <span class="review-author">Aroha Ngata<span class="review-role">Analytics & Tracking Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Aug 2023</span>
+            <span class="review-location">Auckland, New Zealand</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2023">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Connected our fulfillment provider's API after another developer said it wasn't possible. Explained exactly how it worked too.</p>
+        <div class="review-meta">
+          <span class="review-author">Lucia Fernandez<span class="review-role">Third-Party API Integration</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jun 2023</span>
+            <span class="review-location">Madrid, Spain</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2023">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Tightened up admin access and removed old unused staff accounts we'd forgotten about. Straightforward and thorough.</p>
+        <div class="review-meta">
+          <span class="review-author">David Kim<span class="review-role">Store Security Hardening</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Apr 2023</span>
+            <span class="review-location">Seoul, South Korea</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2022">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Second project with Bright and just as smooth as the first. He remembered our brand guidelines without needing to re-explain.</p>
+        <div class="review-meta">
+          <span class="review-author">Bimpe Adeyemi<span class="review-role">Theme Design & Customization</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Dec 2022</span>
+            <span class="review-location">Ibadan, Nigeria</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2022">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Migrated a custom-built site over to Shopify. All historical orders and customer data came across intact, which I was genuinely worried about.</p>
+        <div class="review-meta">
+          <span class="review-author">Rachel Novak<span class="review-role">Platform Migration</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Sep 2022</span>
+            <span class="review-location">Chicago, United States</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="faq">
   <div class="wrap">
     <div class="section-head reveal">
@@ -1498,6 +1943,7 @@ footer{
         <a href="#why-choose-me">Why Me</a>
         <a href="#expertise">Expertise</a>
         <a href="#portfolio">Portfolio</a>
+        <a href="#reviews">Reviews</a>
         <a href="#faq">FAQ</a>
       </div>
 
@@ -1536,6 +1982,20 @@ if(menuToggle && mainNav){
     });
   });
 }
+
+const reviewFilters = document.querySelectorAll('.review-filter');
+const reviewCards = document.querySelectorAll('#reviewsGrid .review-card');
+reviewFilters.forEach(btn => {
+  btn.addEventListener('click', () => {
+    reviewFilters.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.getAttribute('data-filter');
+    reviewCards.forEach(card => {
+      const show = filter === 'all' || card.getAttribute('data-year') === filter;
+      card.classList.toggle('hidden-review', !show);
+    });
+  });
+});
 
 function updateReveals(){
   const vh = window.innerHeight || document.documentElement.clientHeight;
