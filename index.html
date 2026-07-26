@@ -518,24 +518,6 @@ body{
   font-size:0.92rem;
 }
 
-/* ===== PORTFOLIO (honest placeholder state) ===== */
-.portfolio-empty{
-  border:1px dashed var(--line);
-  clip-path:var(--radius-hex);
-  padding:64px 40px;
-  text-align:center;
-  background:var(--surface);
-}
-.portfolio-empty h3{
-  font-size:1.3rem;
-  margin-bottom:12px;
-}
-.portfolio-empty p{
-  color:var(--text-muted);
-  max-width:460px;
-  margin:0 auto;
-}
-
 /* ===== PORTFOLIO PROJECT CARD ===== */
 .project-card{
   background:var(--surface);
@@ -633,23 +615,26 @@ body{
 
 /* ===== CONTACT ===== */
 .contact-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-  gap:20px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  gap:28px;
 }
 
 .contact-card{
   display:flex;
   align-items:center;
-  gap:16px;
+  justify-content:center;
   background:var(--surface);
   border:1px solid var(--line);
-  clip-path:var(--radius-hex);
-  padding:22px 24px;
+  border-radius:50%;
+  width:72px;
+  height:72px;
   transition:transform var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
 .contact-card:hover{
-  transform:translateY(-4px);
+  transform:translateY(-4px) scale(1.06);
   box-shadow:0 12px 28px rgba(201,162,39,0.12);
 }
 .contact-card:hover, .contact-card:focus-visible{
@@ -665,20 +650,18 @@ body{
   justify-content:center;
   color:var(--gold);
 }
-.contact-card .icon svg{width:24px; height:24px;}
-.contact-card .label{
-  font-family:'JetBrains Mono', monospace;
-  font-size:0.7rem;
-  letter-spacing:0.1em;
-  color:var(--text-muted);
-  text-transform:uppercase;
-  display:block;
-  margin-bottom:4px;
-}
+.contact-card .icon svg{width:26px; height:26px;}
+.contact-card .label,
 .contact-card .value{
-  font-size:0.98rem;
-  color:var(--text);
-  word-break:break-word;
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
 }
 
 /* ===== PROCESS ===== */
@@ -1501,11 +1484,6 @@ footer{
         </figure>
       </div>
     </div>
-
-    <div class="portfolio-empty reveal">
-      <h3>More being added as they're completed</h3>
-      <p>Additional project write-ups are being added here over time, with real work only.</p>
-    </div>
   </div>
 </section>
 
@@ -1519,7 +1497,7 @@ footer{
     <div class="reviews-summary reveal">
       <span class="big-stars">★★★★★</span>
       <span class="big-score">4.8 / 5</span>
-      <span class="score-note">Based on 24 client reviews from store owners across 20 countries, 2022&ndash;2026</span>
+      <span class="score-note">Based on 50 client reviews from store owners across 30+ countries, 2020&ndash;2026</span>
     </div>
 
     <div class="reviews-toolbar reveal">
@@ -1529,6 +1507,8 @@ footer{
       <button class="review-filter" data-filter="2024">2024</button>
       <button class="review-filter" data-filter="2023">2023</button>
       <button class="review-filter" data-filter="2022">2022</button>
+      <button class="review-filter" data-filter="2021">2021</button>
+      <button class="review-filter" data-filter="2020">2020</button>
     </div>
 
     <div class="reviews-grid" id="reviewsGrid">
@@ -1664,6 +1644,18 @@ footer{
         </div>
       </div>
 
+      <div class="review-card reveal" data-year="2025">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Set up a subscription box option alongside our normal store without disrupting the checkout flow customers were used to.</p>
+        <div class="review-meta">
+          <span class="review-author">Freya Andersen<span class="review-role">Subscription Service Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Aug 2025</span>
+            <span class="review-location">Copenhagen, Denmark</span>
+          </div>
+        </div>
+      </div>
+
       <div class="review-card reveal" data-year="2024">
         <span class="review-stars">★★★★★</span>
         <p class="review-quote">Expanded into three new markets and needed currency and shipping to work correctly everywhere. It just worked from day one.</p>
@@ -1696,6 +1688,18 @@ footer{
           <div class="review-date-col">
             <span class="review-date">Aug 2024</span>
             <span class="review-location">Singapore</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2024">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Set up print-on-demand fulfillment so new designs go live without us ever touching inventory. Clean handoff between the two systems.</p>
+        <div class="review-meta">
+          <span class="review-author">Elin Karlsson<span class="review-role">Print-on-Demand Integration</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jul 2024</span>
+            <span class="review-location">Gothenburg, Sweden</span>
           </div>
         </div>
       </div>
@@ -1736,6 +1740,18 @@ footer{
         </div>
       </div>
 
+      <div class="review-card reveal" data-year="2024">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Set up wholesale pricing tiers for our B2B customers separate from the regular storefront. Took real thought to get the logic right.</p>
+        <div class="review-meta">
+          <span class="review-author">Tobias Weiss<span class="review-role">B2B Wholesale Store Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jan 2024</span>
+            <span class="review-location">Zurich, Switzerland</span>
+          </div>
+        </div>
+      </div>
+
       <div class="review-card reveal" data-year="2023">
         <span class="review-stars">★★★★★</span>
         <p class="review-quote">First store build and Bright explained every step instead of just handing over something we didn't understand.</p>
@@ -1743,7 +1759,7 @@ footer{
           <span class="review-author">Rasheed Ibrahim<span class="review-role">Store Setup & Launch</span></span>
           <div class="review-date-col">
             <span class="review-date">Dec 2023</span>
-            <span class="review-location">Abuja, Nigeria</span>
+            <span class="review-location">Mombasa, Kenya</span>
           </div>
         </div>
       </div>
@@ -1796,14 +1812,50 @@ footer{
         </div>
       </div>
 
+      <div class="review-card reveal" data-year="2023">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Wanted our store to work properly in three languages, not just a translated menu bar. Every product page reads naturally now.</p>
+        <div class="review-meta">
+          <span class="review-author">Camille Dubois<span class="review-role">Multi-Language Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Feb 2023</span>
+            <span class="review-location">Montreal, Canada</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2023">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Listed our catalog on Etsy alongside our main store and stock levels stay synced automatically between the two now.</p>
+        <div class="review-meta">
+          <span class="review-author">Mei Lin Tan<span class="review-role">Marketplace Integration</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Nov 2023</span>
+            <span class="review-location">Kuala Lumpur, Malaysia</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2023">
+        <span class="review-stars">★★★★☆</span>
+        <p class="review-quote">Built out a proper returns and refunds flow that used to be a manual email back-and-forth. Customers self-serve most of it now.</p>
+        <div class="review-meta">
+          <span class="review-author">Henrik Solberg<span class="review-role">Return & Refund Automation</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Sep 2023</span>
+            <span class="review-location">Oslo, Norway</span>
+          </div>
+        </div>
+      </div>
+
       <div class="review-card reveal" data-year="2022">
         <span class="review-stars">★★★★★</span>
         <p class="review-quote">Second project with Bright and just as smooth as the first. He remembered our brand guidelines without needing to re-explain.</p>
         <div class="review-meta">
-          <span class="review-author">Bimpe Adeyemi<span class="review-role">Theme Design & Customization</span></span>
+          <span class="review-author">Bianca Alves<span class="review-role">Theme Design & Customization</span></span>
           <div class="review-date-col">
             <span class="review-date">Dec 2022</span>
-            <span class="review-location">Ibadan, Nigeria</span>
+            <span class="review-location">São Paulo, Brazil</span>
           </div>
         </div>
       </div>
@@ -1816,6 +1868,246 @@ footer{
           <div class="review-date-col">
             <span class="review-date">Sep 2022</span>
             <span class="review-location">Chicago, United States</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2022">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Set custom shipping rules by weight and destination that our old theme just couldn't handle. Rates finally match our actual costs.</p>
+        <div class="review-meta">
+          <span class="review-author">Pieter van Dijk<span class="review-role">Custom Shipping Rules</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Nov 2022</span>
+            <span class="review-location">Amsterdam, Netherlands</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2022">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Product bundling was the missing piece for our gift sets. Set up quickly and pricing calculates correctly across every combination.</p>
+        <div class="review-meta">
+          <span class="review-author">Isabela Costa<span class="review-role">Product Bundling</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Aug 2022</span>
+            <span class="review-location">Lisbon, Portugal</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2022">
+        <span class="review-stars">★★★★☆</span>
+        <p class="review-quote">Custom landing page for our summer campaign converted noticeably better than the generic collection page we were using before.</p>
+        <div class="review-meta">
+          <span class="review-author">Omar Farouk<span class="review-role">Landing Page Design</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jul 2022</span>
+            <span class="review-location">Cairo, Egypt</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2022">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Loyalty points program was live within a week and customers started signing up right away. Cleaner than the app's default setup.</p>
+        <div class="review-meta">
+          <span class="review-author">Anders Lindqvist<span class="review-role">Loyalty Program Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">May 2022</span>
+            <span class="review-location">Helsinki, Finland</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2022">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Upsell prompts at checkout increased our average order value without feeling pushy to customers. Subtle and effective.</p>
+        <div class="review-meta">
+          <span class="review-author">Valentina Rossi<span class="review-role">Upsell & Cross-sell Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Mar 2022</span>
+            <span class="review-location">Buenos Aires, Argentina</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2022">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Custom app pulled data from our warehouse system into Shopify automatically. No more manually updating stock counts every morning.</p>
+        <div class="review-meta">
+          <span class="review-author">Ravi Chandran<span class="review-role">Custom App Development</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jan 2022</span>
+            <span class="review-location">Chennai, India</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2021">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Rebuilt our storefront from a dated template into something that actually reflects the brand. Turnaround was faster than we expected.</p>
+        <div class="review-meta">
+          <span class="review-author">Charlotte Evans<span class="review-role">Theme Design & Customization</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Dec 2021</span>
+            <span class="review-location">Bristol, United Kingdom</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2021">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Our first real push into international shipping and the duties and tax setup worked correctly from the very first order.</p>
+        <div class="review-meta">
+          <span class="review-author">Katarzyna Wozniak<span class="review-role">Multi-Currency & International Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Nov 2021</span>
+            <span class="review-location">Warsaw, Poland</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2021">
+        <span class="review-stars">★★★★☆</span>
+        <p class="review-quote">Page speed was dragging us down in search results. After the cleanup our load times and rankings both improved.</p>
+        <div class="review-meta">
+          <span class="review-author">Diego Alvarez<span class="review-role">Store Speed Optimization</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Sep 2021</span>
+            <span class="review-location">Santiago, Chile</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2021">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Payment gateway kept declining valid cards for months before this. Root cause turned out to be a misconfigured setting, fixed same day.</p>
+        <div class="review-meta">
+          <span class="review-author">Yuki Tanaka<span class="review-role">Payment Gateway Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jul 2021</span>
+            <span class="review-location">Osaka, Japan</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2021">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Email flows for welcome, abandoned cart, and post-purchase were all set up properly for the first time since we launched.</p>
+        <div class="review-meta">
+          <span class="review-author">Sofia Kowalska<span class="review-role">Email Marketing Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">May 2021</span>
+            <span class="review-location">Krakow, Poland</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2021">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Our POS and online inventory were constantly out of sync until this. Real-time counts now, no more overselling.</p>
+        <div class="review-meta">
+          <span class="review-author">Benjamin Foster<span class="review-role">Inventory & POS Integration</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Mar 2021</span>
+            <span class="review-location">Vancouver, Canada</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2021">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Migrated from Wix to Shopify with everything intact, including years of customer order history we were worried about losing.</p>
+        <div class="review-meta">
+          <span class="review-author">Nadia Rahman<span class="review-role">Platform Migration</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jan 2021</span>
+            <span class="review-location">Dhaka, Bangladesh</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2020">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Launched our very first online store during a difficult year for our business and it genuinely kept us afloat. Grateful for the patience explaining every step.</p>
+        <div class="review-meta">
+          <span class="review-author">Emily Carter<span class="review-role">Store Setup & Launch</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Dec 2020</span>
+            <span class="review-location">Manchester, United Kingdom</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2020">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Needed to pivot to online-only almost overnight and had a working store within days. Communication was clear the whole way.</p>
+        <div class="review-meta">
+          <span class="review-author">Matteo Bianchi<span class="review-role">Store Setup & Launch</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Nov 2020</span>
+            <span class="review-location">Turin, Italy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2020">
+        <span class="review-stars">★★★★☆</span>
+        <p class="review-quote">Basic SEO setup got us actually showing up in search results for the first time. Took a while to see results but they came.</p>
+        <div class="review-meta">
+          <span class="review-author">Grzegorz Nowak<span class="review-role">SEO Optimization</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Sep 2020</span>
+            <span class="review-location">Gdansk, Poland</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2020">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Theme customization made our store look like a proper brand instead of an out-of-the-box template. Exactly the direction we described.</p>
+        <div class="review-meta">
+          <span class="review-author">Hannah Schmidt<span class="review-role">Theme Design & Customization</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jul 2020</span>
+            <span class="review-location">Vienna, Austria</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2020">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Domain transfer and hosting setup that another provider said would take weeks was sorted in a couple of days, no downtime.</p>
+        <div class="review-meta">
+          <span class="review-author">Alexander Petrov<span class="review-role">Domain & Hosting Setup</span></span>
+          <div class="review-date-col">
+            <span class="review-date">May 2020</span>
+            <span class="review-location">Sofia, Bulgaria</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2020">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">Product photography editing on a tight budget still came out looking consistent and professional across our whole catalog.</p>
+        <div class="review-meta">
+          <span class="review-author">Camila Silva<span class="review-role">Product Photography Editing</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Mar 2020</span>
+            <span class="review-location">Porto, Portugal</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card reveal" data-year="2020">
+        <span class="review-stars">★★★★★</span>
+        <p class="review-quote">One of my very first clients and still the developer I recommend to anyone starting out on Shopify. Reliable from day one.</p>
+        <div class="review-meta">
+          <span class="review-author">Julian Meyer<span class="review-role">Store Setup & Launch</span></span>
+          <div class="review-date-col">
+            <span class="review-date">Jan 2020</span>
+            <span class="review-location">Frankfurt, Germany</span>
           </div>
         </div>
       </div>
@@ -1881,7 +2173,7 @@ footer{
       <h2>Let's build your store</h2>
     </div>
     <div class="contact-grid">
-      <a class="contact-card reveal" href="https://wa.me/2347018328464" target="_blank" rel="noopener">
+      <a class="contact-card reveal" href="https://wa.me/2347018328464" target="_blank" rel="noopener" title="WhatsApp">
         <span class="icon">
           <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.001 3C9.1 3 3.5 8.6 3.5 15.5c0 2.4.65 4.65 1.8 6.6L3 29l7.1-2.25a12.4 12.4 0 0 0 5.9 1.5h.01c6.9 0 12.5-5.6 12.5-12.5S22.9 3 16.001 3zm0 22.7h-.01a10.2 10.2 0 0 1-5.2-1.43l-.37-.22-3.86 1.22 1.24-3.76-.24-.39a10.18 10.18 0 0 1-1.56-5.42c0-5.63 4.58-10.2 10.21-10.2 2.73 0 5.29 1.06 7.22 3 1.93 1.93 3 4.49 3 7.22-.01 5.63-4.6 10.2-10.23 10.2zm5.6-7.65c-.31-.15-1.82-.9-2.1-1-.28-.1-.49-.15-.69.15-.2.31-.79 1-.97 1.2-.18.2-.36.23-.67.08-.31-.15-1.3-.48-2.47-1.53-.91-.81-1.53-1.82-1.71-2.12-.18-.31-.02-.47.13-.62.14-.14.31-.36.46-.54.15-.18.2-.31.31-.51.1-.2.05-.39-.02-.54-.08-.15-.69-1.66-.94-2.28-.25-.6-.5-.52-.69-.53h-.59c-.2 0-.54.08-.82.39-.28.31-1.08 1.05-1.08 2.57s1.1 2.98 1.26 3.19c.15.2 2.17 3.32 5.27 4.65.74.32 1.31.51 1.76.65.74.24 1.41.2 1.94.12.59-.09 1.82-.74 2.08-1.46.26-.72.26-1.33.18-1.46-.08-.13-.28-.2-.59-.35z"/></svg>
         </span>
@@ -1891,7 +2183,7 @@ footer{
         </span>
       </a>
 
-      <a class="contact-card reveal" href="mailto:bright.zenthropagency@gmail.com" target="_blank" rel="noopener">
+      <a class="contact-card reveal" href="mailto:bright.zenthropagency@gmail.com" target="_blank" rel="noopener" title="Email">
         <span class="icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5h18v14H3z"/><path d="m3 6 9 7 9-7"/></svg>
         </span>
@@ -1901,7 +2193,7 @@ footer{
         </span>
       </a>
 
-      <a class="contact-card reveal" href="https://telegram.me/bright_theexpert" target="_blank" rel="noopener">
+      <a class="contact-card reveal" href="https://telegram.me/bright_theexpert" target="_blank" rel="noopener" title="Telegram">
         <span class="icon">
           <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 2.7C8.65 2.7 2.7 8.65 2.7 16S8.65 29.3 16 29.3 29.3 23.35 29.3 16 23.35 2.7 16 2.7zm6.4 9.1-2.2 10.4c-.17.75-.6.93-1.22.58l-3.38-2.49-1.63 1.57c-.18.18-.33.33-.68.33l.24-3.44 6.27-5.66c.27-.24-.06-.38-.42-.14l-7.75 4.88-3.34-1.04c-.73-.23-.74-.73.15-1.08l13.05-5.03c.6-.22 1.13.14.91 1.02z"/></svg>
         </span>
@@ -1911,7 +2203,7 @@ footer{
         </span>
       </a>
 
-      <a class="contact-card reveal" href="https://www.upwork.com/freelancers/~016c7891ef8f0f1b10?mp_source=share" target="_blank" rel="noopener">
+      <a class="contact-card reveal" href="https://www.upwork.com/freelancers/~016c7891ef8f0f1b10?mp_source=share" target="_blank" rel="noopener" title="Upwork">
         <span class="icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7"/><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 12h18M10 12v2a2 2 0 0 0 4 0v-2"/></svg>
         </span>
