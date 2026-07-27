@@ -613,6 +613,175 @@ body{
   letter-spacing:0.05em;
 }
 
+/* ===== CASE STUDY CONCEPTS ===== */
+.case-study-intro{
+  margin:56px 0 24px;
+  text-align:center;
+}
+.case-study-intro h3{
+  font-family:'Syne', sans-serif;
+  font-size:1.5rem;
+  margin-bottom:10px;
+}
+.case-study-intro p{
+  color:var(--text-muted);
+  max-width:560px;
+  margin:0 auto;
+  font-size:0.95rem;
+}
+.case-study-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:18px;
+}
+.case-study-card{
+  display:block;
+  width:100%;
+  text-align:left;
+  font:inherit;
+  color:inherit;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:22px 22px 20px;
+  cursor:pointer;
+  transition:transform var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.case-study-card:hover, .case-study-card:focus-visible{
+  transform:translateY(-4px);
+  border-color:var(--gold);
+  background:var(--surface-2);
+  box-shadow:0 12px 28px rgba(201,162,39,0.12);
+}
+.case-study-card .cs-tag{
+  display:inline-block;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.66rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--gold);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:4px 10px;
+  margin-bottom:14px;
+}
+.case-study-card h4{
+  font-family:'Syne', sans-serif;
+  font-size:1.1rem;
+  margin-bottom:6px;
+}
+.case-study-card .cs-niche{
+  color:var(--text-muted);
+  font-size:0.85rem;
+  margin-bottom:14px;
+}
+.case-study-card .cs-result{
+  font-size:0.85rem;
+  color:var(--text);
+  border-top:1px solid var(--line);
+  padding-top:12px;
+}
+.case-study-card .cs-result strong{
+  color:var(--gold-bright);
+}
+.case-study-card .cs-open{
+  display:inline-block;
+  margin-top:14px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.7rem;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+}
+.case-study-card:hover .cs-open{color:var(--gold);}
+
+.cs-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(10,9,8,0.92);
+  backdrop-filter:blur(6px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:200;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity var(--dur-slow) var(--ease);
+  padding:24px;
+}
+.cs-modal.open{
+  opacity:1;
+  pointer-events:auto;
+}
+.cs-modal-box{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  max-width:560px;
+  width:100%;
+  max-height:85vh;
+  overflow-y:auto;
+  padding:36px 32px;
+  position:relative;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+.cs-modal-close{
+  position:absolute;
+  top:16px;
+  right:20px;
+  font-size:1.8rem;
+  line-height:1;
+  color:var(--text-muted);
+  cursor:pointer;
+  background:none;
+  border:none;
+}
+.cs-modal-close:hover{color:var(--gold);}
+.cs-modal-box .cs-tag{
+  display:inline-block;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.66rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--gold);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:4px 10px;
+  margin-bottom:14px;
+}
+.cs-modal-box h3{
+  font-family:'Syne', sans-serif;
+  font-size:1.5rem;
+  margin-bottom:4px;
+}
+.cs-modal-box .cs-niche{
+  color:var(--text-muted);
+  font-size:0.9rem;
+  margin-bottom:22px;
+}
+.cs-modal-box h5{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.72rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin:18px 0 6px;
+}
+.cs-modal-box h5:first-of-type{margin-top:0;}
+.cs-modal-box p{
+  color:var(--text);
+  font-size:0.95rem;
+  line-height:1.6;
+}
+.cs-modal-box .cs-result-box{
+  margin-top:20px;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:14px 16px;
+}
+.cs-modal-box .cs-result-box strong{color:var(--gold-bright);}
+
 /* ===== CONTACT ===== */
 .contact-grid{
   display:flex;
@@ -1484,6 +1653,117 @@ footer{
         </figure>
       </div>
     </div>
+
+    <div class="case-study-intro reveal">
+      <h3>Case Study Concepts</h3>
+      <p>Illustrative examples of the kind of outcomes each service is built to deliver, based on real project patterns across the work above. Tap any card for the full breakdown.</p>
+    </div>
+
+    <div class="case-study-grid">
+      <button class="case-study-card reveal" data-cs="1">
+        <span class="cs-tag">Store Setup & Launch</span>
+        <h4>Wildroot Skincare</h4>
+        <p class="cs-niche">Natural skincare, first-time online seller</p>
+        <p class="cs-result">Launched from zero to <strong>live store</strong> in under 3 weeks</p>
+        <span class="cs-open">View case study →</span>
+      </button>
+
+      <button class="case-study-card reveal" data-cs="2">
+        <span class="cs-tag">Theme Design & Customization</span>
+        <h4>Solstice Home Goods</h4>
+        <p class="cs-niche">Home decor & furnishings</p>
+        <p class="cs-result">Full rebrand raised time-on-site by <strong>41%</strong></p>
+        <span class="cs-open">View case study →</span>
+      </button>
+
+      <button class="case-study-card reveal" data-cs="3">
+        <span class="cs-tag">Store Speed Optimization</span>
+        <h4>Trail & Peak Outdoor Gear</h4>
+        <p class="cs-niche">Outdoor equipment retailer</p>
+        <p class="cs-result">Load time cut from 6.8s to <strong>1.9s</strong></p>
+        <span class="cs-open">View case study →</span>
+      </button>
+
+      <button class="case-study-card reveal" data-cs="4">
+        <span class="cs-tag">Platform Migration</span>
+        <h4>Bindery & Co. Stationery</h4>
+        <p class="cs-niche">Handmade stationery brand</p>
+        <p class="cs-result">Migrated with <strong>zero data loss</strong>, zero downtime</p>
+        <span class="cs-open">View case study →</span>
+      </button>
+
+      <button class="case-study-card reveal" data-cs="5">
+        <span class="cs-tag">App Integration</span>
+        <h4>PetLoop Supplies</h4>
+        <p class="cs-niche">Pet subscription boxes</p>
+        <p class="cs-result">Subscription signups up <strong>28%</strong> post-launch</p>
+        <span class="cs-open">View case study →</span>
+      </button>
+
+      <button class="case-study-card reveal" data-cs="6">
+        <span class="cs-tag">SEO Optimization</span>
+        <h4>Luma Candle Co.</h4>
+        <p class="cs-niche">Scented candles & home fragrance</p>
+        <p class="cs-result">Organic traffic grew <strong>3.2x</strong> in 4 months</p>
+        <span class="cs-open">View case study →</span>
+      </button>
+
+      <button class="case-study-card reveal" data-cs="7">
+        <span class="cs-tag">Conversion Rate Optimization</span>
+        <h4>Fieldstone Coffee Roasters</h4>
+        <p class="cs-niche">Specialty coffee subscriptions</p>
+        <p class="cs-result">Checkout conversion improved <strong>19%</strong></p>
+        <span class="cs-open">View case study →</span>
+      </button>
+
+      <button class="case-study-card reveal" data-cs="8">
+        <span class="cs-tag">Payment Gateway Setup</span>
+        <h4>Aurelia Jewelry</h4>
+        <p class="cs-niche">Fine jewelry, direct-to-consumer</p>
+        <p class="cs-result">Failed payments dropped to <strong>near zero</strong></p>
+        <span class="cs-open">View case study →</span>
+      </button>
+
+      <button class="case-study-card reveal" data-cs="9">
+        <span class="cs-tag">Multi-Currency & International Setup</span>
+        <h4>Nordkind Baby Goods</h4>
+        <p class="cs-niche">Baby & toddler essentials</p>
+        <p class="cs-result">Expanded checkout to <strong>12 currencies</strong></p>
+        <span class="cs-open">View case study →</span>
+      </button>
+
+      <button class="case-study-card reveal" data-cs="10">
+        <span class="cs-tag">Email Marketing Setup</span>
+        <h4>Verve Activewear</h4>
+        <p class="cs-niche">Women's activewear brand</p>
+        <p class="cs-result">Abandoned cart flow recovered <strong>15%</strong> of lost sales</p>
+        <span class="cs-open">View case study →</span>
+      </button>
+
+      <button class="case-study-card reveal" data-cs="11">
+        <span class="cs-tag">Mobile Optimization</span>
+        <h4>Marlow & Finch Bookshop</h4>
+        <p class="cs-niche">Independent online bookstore</p>
+        <p class="cs-result">Mobile conversion rate rose <strong>34%</strong></p>
+        <span class="cs-open">View case study →</span>
+      </button>
+
+      <button class="case-study-card reveal" data-cs="12">
+        <span class="cs-tag">Inventory & POS Integration</span>
+        <h4>Greenhouse Grocer</h4>
+        <p class="cs-niche">Local organic grocery, online & in-store</p>
+        <p class="cs-result">Eliminated overselling with <strong>real-time stock sync</strong></p>
+        <span class="cs-open">View case study →</span>
+      </button>
+
+      <button class="case-study-card reveal" data-cs="13">
+        <span class="cs-tag">Live Chat Integration</span>
+        <h4>Hearth & Home Furniture</h4>
+        <p class="cs-niche">Custom furniture, made to order</p>
+        <p class="cs-result">Support email volume dropped <strong>37%</strong></p>
+        <span class="cs-open">View case study →</span>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -2345,6 +2625,121 @@ document.querySelectorAll('.project-proof img').forEach(img => {
 lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape') lightbox.classList.remove('open');
+});
+
+// Case study modal
+const caseStudies = {
+  1: {
+    tag: 'Store Setup & Launch', name: 'Wildroot Skincare', niche: 'Natural skincare, first-time online seller',
+    challenge: 'A first-time seller had product ready to ship but no store, no domain, and no clear idea where to start.',
+    solution: 'Set up the store end to end: theme, product catalog, payment gateway, shipping rules, and a simple domain and hosting setup, with a walkthrough so she could manage it herself.',
+    result: 'Store went live in under 3 weeks and took its first order within 48 hours of launch.'
+  },
+  2: {
+    tag: 'Theme Design & Customization', name: 'Solstice Home Goods', niche: 'Home decor & furnishings',
+    challenge: 'Store was running on an unmodified free theme that looked generic and didn\u2019t reflect the brand at all.',
+    solution: 'Rebuilt the theme with custom sections, a refined color and type system, and a homepage layout built around the brand\u2019s actual bestsellers.',
+    result: 'Average time-on-site rose 41% within the first month after relaunch.'
+  },
+  3: {
+    tag: 'Store Speed Optimization', name: 'Trail & Peak Outdoor Gear', niche: 'Outdoor equipment retailer',
+    challenge: 'A large, image-heavy catalog was pushing load times past 6 seconds, and mobile visitors were bouncing before the page finished loading.',
+    solution: 'Compressed and lazy-loaded product imagery, trimmed unused app scripts, and cleaned up render-blocking code in the theme.',
+    result: 'Load time dropped from 6.8s to 1.9s, with a visible improvement in mobile bounce rate.'
+  },
+  4: {
+    tag: 'Platform Migration', name: 'Bindery & Co. Stationery', niche: 'Handmade stationery brand',
+    challenge: 'Years of order history and customer data were locked into an aging platform the owner wanted to leave behind.',
+    solution: 'Planned and executed a full migration to Shopify, mapping every product, customer record, and past order before cutover to avoid any data loss.',
+    result: 'Migrated with zero data loss and zero downtime during the switch.'
+  },
+  5: {
+    tag: 'App Integration', name: 'PetLoop Supplies', niche: 'Pet subscription boxes',
+    challenge: 'The store wanted to offer recurring subscription boxes but its existing setup only supported one-time purchases.',
+    solution: 'Integrated a subscription app, configured recurring billing and box customization, and adjusted the theme so subscription options felt native to the store.',
+    result: 'Subscription signups rose 28% in the months following launch.'
+  },
+  6: {
+    tag: 'SEO Optimization', name: 'Luma Candle Co.', niche: 'Scented candles & home fragrance',
+    challenge: 'The store had virtually no organic search presence, with most traffic coming from paid ads alone.',
+    solution: 'Rebuilt product and collection metadata, fixed technical SEO issues, and restructured site content around real search terms customers were using.',
+    result: 'Organic traffic grew 3.2x within 4 months, reducing reliance on paid ads.'
+  },
+  7: {
+    tag: 'Conversion Rate Optimization', name: 'Fieldstone Coffee Roasters', niche: 'Specialty coffee subscriptions',
+    challenge: 'Traffic was healthy but checkout abandonment was high, and it wasn\u2019t clear where customers were dropping off.',
+    solution: 'Reviewed the funnel step by step, simplified checkout fields, added trust signals, and streamlined the subscription selection flow.',
+    result: 'Checkout conversion improved by 19% without any change in ad spend.'
+  },
+  8: {
+    tag: 'Payment Gateway Setup', name: 'Aurelia Jewelry', niche: 'Fine jewelry, direct-to-consumer',
+    challenge: 'A meaningful share of high-value orders were failing at checkout due to a misconfigured payment gateway.',
+    solution: 'Diagnosed the gateway configuration, corrected currency and fraud-filter settings, and added a backup payment method for resilience.',
+    result: 'Failed payments dropped to near zero, recovering orders that were previously being lost silently.'
+  },
+  9: {
+    tag: 'Multi-Currency & International Setup', name: 'Nordkind Baby Goods', niche: 'Baby & toddler essentials',
+    challenge: 'International customers were checking out in a single currency, causing confusion and cart abandonment abroad.',
+    solution: 'Configured multi-currency checkout, localized pricing, and adjusted tax and shipping rules for each target market.',
+    result: 'Checkout now supports 12 currencies, with international orders becoming a steady share of monthly revenue.'
+  },
+  10: {
+    tag: 'Email Marketing Setup', name: 'Verve Activewear', niche: 'Women\u2019s activewear brand',
+    challenge: 'The store had no automated email flows, meaning abandoned carts and first-time visitors were never followed up with.',
+    solution: 'Built welcome, abandoned cart, and post-purchase email flows, each tailored to the brand\u2019s voice and product lineup.',
+    result: 'The abandoned cart flow alone recovered 15% of otherwise lost sales.'
+  },
+  11: {
+    tag: 'Mobile Optimization', name: 'Marlow & Finch Bookshop', niche: 'Independent online bookstore',
+    challenge: 'Over 70% of traffic was mobile, but the store was designed desktop-first and felt clumsy to browse and buy from on a phone.',
+    solution: 'Rebuilt key templates mobile-first, simplified navigation and filters for smaller screens, and tightened up tap targets and checkout steps.',
+    result: 'Mobile conversion rate rose 34% within weeks of the update.'
+  },
+  12: {
+    tag: 'Inventory & POS Integration', name: 'Greenhouse Grocer', niche: 'Local organic grocery, online & in-store',
+    challenge: 'In-store and online inventory were tracked separately, leading to regular overselling on popular items.',
+    solution: 'Connected the store\u2019s POS system to Shopify inventory so stock counts update in real time across both channels.',
+    result: 'Overselling was eliminated, with stock counts now staying accurate across in-store and online sales.'
+  },
+  13: {
+    tag: 'Live Chat Integration', name: 'Hearth & Home Furniture', niche: 'Custom furniture, made to order',
+    challenge: 'Customers had detailed questions about custom orders, and the only support channel was a slow-moving contact form.',
+    solution: 'Added live chat with automated answers for common questions like lead times and materials, routing anything complex to the owner directly.',
+    result: 'Support email volume dropped 37% as more questions were resolved instantly through chat.'
+  }
+};
+
+const csModal = document.createElement('div');
+csModal.className = 'cs-modal';
+csModal.innerHTML = '<div class="cs-modal-box"><button class="cs-modal-close" aria-label="Close">&times;</button><span class="cs-tag" id="csModalTag"></span><h3 id="csModalName"></h3><p class="cs-niche" id="csModalNiche"></p><h5>Challenge</h5><p id="csModalChallenge"></p><h5>Solution</h5><p id="csModalSolution"></p><div class="cs-result-box"><h5 style="margin-top:0">Result</h5><p id="csModalResult"></p></div></div>';
+document.body.appendChild(csModal);
+const csModalTag = csModal.querySelector('#csModalTag');
+const csModalName = csModal.querySelector('#csModalName');
+const csModalNiche = csModal.querySelector('#csModalNiche');
+const csModalChallenge = csModal.querySelector('#csModalChallenge');
+const csModalSolution = csModal.querySelector('#csModalSolution');
+const csModalResult = csModal.querySelector('#csModalResult');
+
+document.querySelectorAll('.case-study-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const cs = caseStudies[card.getAttribute('data-cs')];
+    if(!cs) return;
+    csModalTag.textContent = cs.tag;
+    csModalName.textContent = cs.name;
+    csModalNiche.textContent = cs.niche;
+    csModalChallenge.textContent = cs.challenge;
+    csModalSolution.textContent = cs.solution;
+    csModalResult.textContent = cs.result;
+    csModal.classList.add('open');
+  });
+});
+csModal.addEventListener('click', (e) => {
+  if(e.target === csModal || e.target.classList.contains('cs-modal-close')) {
+    csModal.classList.remove('open');
+  }
+});
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') csModal.classList.remove('open');
 });
 
 </script>
