@@ -694,6 +694,32 @@ body{
   color:var(--text-muted);
 }
 .case-study-card:hover .cs-open{color:var(--gold);}
+.case-study-card.cs-truncated{display:none;}
+
+.cs-more-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:28px;
+}
+.cs-more-btn{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.8rem;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--gold);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:12px 28px;
+  cursor:pointer;
+  transition:border-color var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.cs-more-btn:hover{
+  border-color:var(--gold);
+  background:var(--surface-2);
+  transform:translateY(-2px);
+}
+.cs-more-btn.is-hidden{display:none;}
 
 .cs-modal{
   position:fixed;
@@ -942,6 +968,33 @@ body{
   transform:translateY(-4px);
 }
 .review-card.hidden-review{display:none;}
+.review-card.review-truncated{display:none;}
+
+.reviews-more-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:28px;
+}
+.reviews-more-btn{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.8rem;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--gold);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:12px 28px;
+  cursor:pointer;
+  transition:border-color var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.reviews-more-btn:hover{
+  border-color:var(--gold);
+  background:var(--surface-2);
+  transform:translateY(-2px);
+}
+.reviews-more-btn.is-hidden{display:none;}
+
 .review-stars{
   color:var(--gold);
   font-size:0.95rem;
@@ -1764,6 +1817,10 @@ footer{
         <span class="cs-open">View case study →</span>
       </button>
     </div>
+
+    <div class="cs-more-wrap">
+      <button class="cs-more-btn" id="csMoreBtn">Read More Case Studies</button>
+    </div>
   </div>
 </section>
 
@@ -2392,6 +2449,10 @@ footer{
         </div>
       </div>
     </div>
+
+    <div class="reviews-more-wrap">
+      <button class="reviews-more-btn" id="reviewsMoreBtn">Read More Reviews</button>
+    </div>
   </div>
 </section>
 
@@ -2557,11 +2618,31 @@ if(menuToggle && mainNav){
 
 const reviewFilters = document.querySelectorAll('.review-filter');
 const reviewCards = document.querySelectorAll('#reviewsGrid .review-card');
+const reviewsMoreBtn = document.getElementById('reviewsMoreBtn');
+const REVIEWS_INITIAL_LIMIT = 8;
+
+reviewCards.forEach((card, i) => {
+  if(i >= REVIEWS_INITIAL_LIMIT) card.classList.add('review-truncated');
+});
+if(reviewCards.length <= REVIEWS_INITIAL_LIMIT && reviewsMoreBtn){
+  reviewsMoreBtn.classList.add('is-hidden');
+}
+
+function expandReviews(){
+  reviewCards.forEach(card => card.classList.remove('review-truncated'));
+  if(reviewsMoreBtn) reviewsMoreBtn.classList.add('is-hidden');
+}
+
+if(reviewsMoreBtn){
+  reviewsMoreBtn.addEventListener('click', expandReviews);
+}
+
 reviewFilters.forEach(btn => {
   btn.addEventListener('click', () => {
     reviewFilters.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const filter = btn.getAttribute('data-filter');
+    if(filter !== 'all') expandReviews();
     reviewCards.forEach(card => {
       const show = filter === 'all' || card.getAttribute('data-year') === filter;
       card.classList.toggle('hidden-review', !show);
@@ -2720,7 +2801,24 @@ const csModalChallenge = csModal.querySelector('#csModalChallenge');
 const csModalSolution = csModal.querySelector('#csModalSolution');
 const csModalResult = csModal.querySelector('#csModalResult');
 
-document.querySelectorAll('.case-study-card').forEach(card => {
+const csCards = document.querySelectorAll('.case-study-card');
+const csMoreBtn = document.getElementById('csMoreBtn');
+const CS_INITIAL_LIMIT = 6;
+
+csCards.forEach((card, i) => {
+  if(i >= CS_INITIAL_LIMIT) card.classList.add('cs-truncated');
+});
+if(csCards.length <= CS_INITIAL_LIMIT && csMoreBtn){
+  csMoreBtn.classList.add('is-hidden');
+}
+if(csMoreBtn){
+  csMoreBtn.addEventListener('click', () => {
+    csCards.forEach(card => card.classList.remove('cs-truncated'));
+    csMoreBtn.classList.add('is-hidden');
+  });
+}
+
+csCards.forEach(card => {
   card.addEventListener('click', () => {
     const cs = caseStudies[card.getAttribute('data-cs')];
     if(!cs) return;
