@@ -465,6 +465,32 @@ body{
   grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
   gap:22px;
 }
+#services .service-card.svc-truncated{display:none;}
+
+.svc-more-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:28px;
+}
+.svc-more-btn{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.8rem;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--gold);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:12px 28px;
+  cursor:pointer;
+  transition:border-color var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.svc-more-btn:hover{
+  border-color:var(--gold);
+  background:var(--surface-2);
+  transform:translateY(-2px);
+}
+.svc-more-btn.is-hidden{display:none;}
 
 .service-card{
   background:var(--surface);
@@ -865,6 +891,32 @@ body{
   grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
   gap:22px;
 }
+.process-step.proc-truncated{display:none;}
+
+.proc-more-wrap{
+  display:flex;
+  justify-content:center;
+  margin-top:28px;
+}
+.proc-more-btn{
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.8rem;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  color:var(--gold);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:12px 28px;
+  cursor:pointer;
+  transition:border-color var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.proc-more-btn:hover{
+  border-color:var(--gold);
+  background:var(--surface-2);
+  transform:translateY(-2px);
+}
+.proc-more-btn.is-hidden{display:none;}
 .process-step{
   background:var(--surface);
   border:1px solid var(--line);
@@ -1452,6 +1504,10 @@ footer{
         <div class="service-detail">Whether it's a CRM, an inventory system, or another business tool, integrations get set up and tested so data flows correctly between your store and the tools you already use.</div>
       </details>
     </div>
+
+    <div class="svc-more-wrap">
+      <button class="svc-more-btn" id="svcMoreBtn">Read More Services</button>
+    </div>
   </div>
 </section>
 
@@ -1502,6 +1558,10 @@ footer{
         <h3>Ongoing Improvements</h3>
         <p>As your store grows, I'm available to make updates, add features, or adjust things based on what you're learning from real customers.</p>
       </div>
+    </div>
+
+    <div class="proc-more-wrap">
+      <button class="proc-more-btn" id="procMoreBtn">Read More Steps</button>
     </div>
   </div>
 </section>
@@ -2616,10 +2676,30 @@ if(menuToggle && mainNav){
   });
 }
 
+// Generic "read more" truncation for a grid of cards
+function setupReadMore(cardSelector, btnId, truncClass, limit){
+  const cards = document.querySelectorAll(cardSelector);
+  const btn = document.getElementById(btnId);
+  cards.forEach((card, i) => {
+    if(i >= limit) card.classList.add(truncClass);
+  });
+  if(cards.length <= limit && btn){
+    btn.classList.add('is-hidden');
+  }
+  if(btn){
+    btn.addEventListener('click', () => {
+      cards.forEach(card => card.classList.remove(truncClass));
+      btn.classList.add('is-hidden');
+    });
+  }
+}
+setupReadMore('#services .service-card', 'svcMoreBtn', 'svc-truncated', 8);
+setupReadMore('#process .process-step', 'procMoreBtn', 'proc-truncated', 4);
+
 const reviewFilters = document.querySelectorAll('.review-filter');
 const reviewCards = document.querySelectorAll('#reviewsGrid .review-card');
 const reviewsMoreBtn = document.getElementById('reviewsMoreBtn');
-const REVIEWS_INITIAL_LIMIT = 8;
+const REVIEWS_INITIAL_LIMIT = 5;
 
 reviewCards.forEach((card, i) => {
   if(i >= REVIEWS_INITIAL_LIMIT) card.classList.add('review-truncated');
